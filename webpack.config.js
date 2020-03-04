@@ -2,13 +2,14 @@ const path = require('path');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-    entry: './src/main/js/app.js',
+    entry: './src/main/js/App.js',
     devtool: 'sourcemaps',
     cache: true,
     mode: 'development',
     output: {
-        path: __dirname,
-        filename: './src/main/resources/static/built/bundle.js'
+        path: __dirname + './src/main/js/dist',
+        // filename: './src/main/resources/static/built/bundle.js'
+        path: path.resolve(__dirname, 'dist')
     },
     watchOptions: {
         poll: 200
@@ -33,13 +34,21 @@ module.exports = {
                         options: {minimize: true}
                     }
                 ]
-            }
+            },
+            {
+                test: /\.(png|svg|jpe?g|gif)$/,
+                use: [
+                    {
+                        loader: 'file-loader'
+                    }
+                ]
+            },
         ]
     },
     plugins: [
         new HtmlWebPackPlugin({
             template: "./src/main/resources/templates/index.html",
-            filename: "./index.html"
+            filename: "/index.html",
         })
     ]
 };

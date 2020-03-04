@@ -1,11 +1,11 @@
 {
-  "name": "spring-data-rest-and-reactjs",
+  "name": "Internship-for-you",
   "repository": {
     "url": "https://github.com/KalitaKonrad/Internship-for-you.git",
     "type": "git"
   },
   "version": "1.0.0",
-  "description": "Internship-app",
+  "description": "Application for finding internship in your city of choice",
   "keywords": [
     "rest",
     "spring",
@@ -29,6 +29,7 @@
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.2",
+    "file-loader": "^5.1.0",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
     "webpack": "^4.19.1",
