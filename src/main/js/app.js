@@ -9,6 +9,7 @@ class App extends React.Component {
         this.state = {employers: []};
     }
 
+
     componentDidMount() {
         // SFETCHOWAC DANE Z API!
         

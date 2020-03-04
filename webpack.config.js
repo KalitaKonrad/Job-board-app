@@ -9,6 +9,9 @@ module.exports = {
         path: __dirname,
         filename: './src/main/resources/static/built/bundle.js'
     },
+    watchOptions: {
+        poll: 200
+    },
     module: {
         rules: [
             {
