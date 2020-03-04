@@ -1,4 +1,5 @@
-var path = require('path');
+const path = require('path');
+const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 module.exports = {
     entry: './src/main/js/app.js',
@@ -23,7 +24,22 @@ module.exports = {
                         presets: ["@babel/preset-env", "@babel/preset-react"]
                     }
                 }]
+            },
+            {
+                test: /\.html$/,
+                use: [
+                    {
+                        loader: "html-loader",
+                        options: {minimize: true}
+                    }
+                ]
             }
         ]
-    }
+    },
+    plugins: [
+        new HtmlWebPackPlugin({
+            template: "./src/main/resources/templates/index.html",
+            filename: "./index.html"
+        })
+    ]
 };
