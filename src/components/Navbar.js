@@ -10,7 +10,13 @@ class Navbar extends Component {
             <img className='w-16 h-16' src={require('../img/monitor.png')} alt='logo' />
           </div>
           <div>
-            <button className='text-white-500 hover:text-white'>Login</button>
+            <button className='text-white-500 font-bold p-2 m-2 hover:text-blue-400 focus:outline-none'>Login</button>
+            <button className='text-white-500 font-bold p-2 m-2 hover:text-blue-400 focus:outline-none'>
+              For Developers
+            </button>
+            <button className='text-white-500 font-bold p-2 m-2 hover:text-blue-400 focus:outline-none'>
+              For Employers
+            </button>
           </div>
         </nav>
       </div>

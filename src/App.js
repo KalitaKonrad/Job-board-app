@@ -3,6 +3,7 @@ import axios from './api/api_config';
 import Login from './components/Login';
 import Navbar from './components/Navbar';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import Offer from './components/Offer';
 
 class App extends Component {
   render() {
@@ -11,10 +12,8 @@ class App extends Component {
         <Navbar />
         <Router>
           <Route path='/login' component={Login} />
+          <Route path='/internship' component={Offer} />
         </Router>
-        <div className='container mx-auto p-4 m-4'>
-          <Login />
-        </div>
       </div>
     );
   }
