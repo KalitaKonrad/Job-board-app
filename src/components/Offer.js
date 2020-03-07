@@ -1,20 +1,32 @@
 import React, { Component } from 'react';
 
 class Offer extends Component {
-  state = {};
+  constructor(props) {
+    super(props);
+    this.state = {
+      // description: this.props.description,
+      // salary: this.props.salary,
+      // companyName: this.props.companyName,
+      // location: this.props.location,
+      // techStack: this.props.techStack
+    };
+  }
+
   render() {
+    const { description, companyName, location } = this.props; //add salary and techstack
+
     return (
       <div className='flex flex-row text-black p-3 m-3'>
         <img src={require('../img/monitor.png')} className='object-left' />
         <div className='flex flex-col justify-between'>
           <div className='flex flex-row justify-between'>
             {/* Description + salary */}
-            <span>Desc</span>
+            <span>{description}</span>
             <span>Salary</span>
           </div>
           <div className='flex flex-row'>
-            <span>Company name</span>
-            <span>Location</span>
+            <span>{companyName}</span>
+            <span>{location == '' ? 'yes' : `${location}`} </span>
             <span>Tech Stack</span>
           </div>
         </div>
