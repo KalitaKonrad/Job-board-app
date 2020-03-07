@@ -1,17 +1,6 @@
 import React, { Component } from 'react';
 
 class Offer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      // description: this.props.description,
-      // salary: this.props.salary,
-      // companyName: this.props.companyName,
-      // location: this.props.location,
-      // techStack: this.props.techStack
-    };
-  }
-
   render() {
     const { description, companyName, location } = this.props; //add salary and techstack
 

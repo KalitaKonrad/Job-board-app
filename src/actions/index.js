@@ -1,7 +1,7 @@
-const createOffer = () => {
-  return {
-    type: 'CREATE'
-  };
+import { fetchOffers } from './fetchOffers';
+
+const allActions = {
+  fetchOffers
 };
 
-export default createOffer;
+export default allActions;
