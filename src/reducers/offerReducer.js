@@ -7,7 +7,7 @@ const initialState = {
   error: null
 };
 
-const offerReducer = (state = [], action) => {
+const offerReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_OFFERS_SUCCESS:
       return {
