@@ -3,10 +3,7 @@ package com.krdkta.internship_for_you.controller;
 import com.krdkta.internship_for_you.model.Employer;
 import com.krdkta.internship_for_you.service.EmployerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,9 +16,23 @@ public class EmployerController {
     this.employerService = employerService;
   }
 
-  @GetMapping(value = "/employers", produces = MediaType.APPLICATION_JSON_VALUE)
-  @ResponseBody
+  @GetMapping(value = "/employers")
   public List<Employer> getAllEmployers() {
     return employerService.getAllEmployers();
+  }
+
+  @GetMapping(value = "employers/{id}")
+  public Employer getEmployer(@PathVariable long id) {
+    return employerService.getEmployerById(id);
+  }
+
+  @PostMapping(value = "/employers")
+  public void addEmployer(@RequestBody Employer employer) {
+    employerService.saveEmployer(employer);
+  }
+
+  @PutMapping(value = "employers/{id}")
+  public void updateEmployer(@RequestBody Employer employer, @PathVariable long id) {
+    employerService.updateEmployerById(employer, id);
   }
 }
