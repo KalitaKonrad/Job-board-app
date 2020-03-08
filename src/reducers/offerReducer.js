@@ -15,7 +15,6 @@ const offerReducer = (state = initialState, action) => {
         pending: false,
         offers: action.payload
       };
-      return action.payload;
     case FETCH_OFFERS_ERROR:
       return {
         ...state,

@@ -1,7 +1,9 @@
-import { fetchOffers } from './fetchOffers';
+export { fetchOffers } from './fetchOffers';
 
-const allActions = {
-  fetchOffers
-};
+// import { fetchOffers } from './fetchOffers';
 
-export default allActions;
+// const allActions = {
+//   fetchOffers
+// };
+
+// export default allActions;

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class Offer extends Component {
   render() {
-    const { description, companyName, location } = this.props; //add salary and techstack
+    const { description, name, location } = this.props; //add salary and techstack
 
     return (
       <div className='flex flex-row text-black p-3 m-3'>
@@ -14,7 +14,7 @@ class Offer extends Component {
             <span>Salary</span>
           </div>
           <div className='flex flex-row'>
-            <span>{companyName}</span>
+            <span>{name}</span>
             <span>{location == '' ? 'yes' : `${location}`} </span>
             <span>Tech Stack</span>
           </div>

@@ -1,17 +1,36 @@
 import React, { Component } from 'react';
-import axios from '../api/api_config';
 import Offer from './Offer';
-import { useSelector, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
+import { fetchOffers } from '../actions/fetchOffers';
 
 class Offers extends Component {
-  renderOffers = () => {
-    this.state.offersList.forEach(item => {
-      return <Offer description={item.description} companyName={item.companyName} location={item.companyName} />;
-    });
-  };
+  constructor(props) {
+    super(props);
+    console.log(this.props);
+  }
+
   render() {
-    return <div></div>;
+    // return <div>{console.log(this.props.offers)}</div>;
+    return (
+      <div className='flex flex-col p-2 m-2 font-bold'>
+        {this.props.offers.offers.map(offer => (
+          <Offer key={offer.id} description={offer.description} name={offer.name} location={offer.location} />
+        ))}
+      </div>
+    );
   }
 }
 
-export default Offers;
+const mapStateToProps = state => {
+  return {
+    offers: state.offers
+  };
+};
+
+const mapDispatchToProps = () => {
+  return {
+    fetchOffers
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Offers);

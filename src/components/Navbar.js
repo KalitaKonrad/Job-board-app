@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
+import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class Navbar extends Component {
-  state = {};
+  routeChange = () => {
+    let path = '/newPath';
+    let history = useHistory();
+    history.push(path);
+  };
+
   render() {
     return (
       <div className='text-white'>
@@ -10,7 +17,10 @@ class Navbar extends Component {
             <img className='w-16 h-16' src={require('../img/monitor.png')} alt='logo' />
           </div>
           <div>
-            <button className='text-white-500 font-bold p-2 m-2 hover:text-blue-400 focus:outline-none'>Login</button>
+            <Link to='/login' className='text-white-500 font-bold p-2 m-2 hover:text-blue-400 focus:outline-none'>
+              Login
+            </Link>
+            {/* <button onClick={this.routeChange}>Login</button> */}
             <button className='text-white-500 font-bold p-2 m-2 hover:text-blue-400 focus:outline-none'>
               For Developers
             </button>
