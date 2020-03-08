@@ -33,8 +33,8 @@ class Login extends Component {
 
   render() {
     return (
-      <div className='container mx-auto p-4 m-4'>
-        <form className='w-full max-w-xs bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4'>
+      <div className='container flex justify-center mx-auto p-4 m-4'>
+        <form className=' w-full max-w-xs bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4'>
           <div className='mb-4'>
             <label htmlFor='username' className='block tex-gray-700 text-sm font-bold mb-2'>
               Username
@@ -68,7 +68,7 @@ class Login extends Component {
             >
               Sign in
             </button>
-            <a className='inline-block text-blue-500 font-bold text-sm hover:text-blue-700 cursor-pointer px-2 mx-2'>
+            <a className='inline-block text-center text-blue-500 font-bold text-sm hover:text-blue-700 cursor-pointer px-2 mx-2'>
               Forgot password?
             </a>
           </div>
@@ -76,7 +76,7 @@ class Login extends Component {
             <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline'>
               Sign Up
             </button>
-            <a className='inline-block text-blue-500 font-bold text-sm hover:text-blue-700 cursor-pointer px-2 mx-2'>
+            <a className='inline-block text-blue-500 font-bold text-sm text-center hover:text-blue-700 cursor-pointer px-2 mx-2'>
               Dont have an account?
             </a>
           </div>

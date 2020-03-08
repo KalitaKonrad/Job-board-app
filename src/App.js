@@ -27,8 +27,7 @@ class App extends Component {
 
   render() {
     return (
-      //onLoad={() => dispatch(fetchOffers())}
-      <div className='container max-h-full max-w-full w-screen h-screen'>
+      <div className='container flex flex-col max-h-full max-w-full w-screen h-screen'>
         <Router>
           <Navbar />
           <button
