@@ -1,16 +1,18 @@
 package com.krdkta.internship_for_you.model;
 
-import lombok.*;
-
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
+// @Table(name = "employer")
 public class Employer {
-  private @Id @GeneratedValue(strategy = GenerationType.AUTO) Long id;
+  private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
   private String name;
   private String location;
   private String description;
+
+  @OneToMany private List<Offer> offerList;
 
   public Employer() {}
 

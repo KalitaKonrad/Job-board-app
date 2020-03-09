@@ -15,7 +15,7 @@ class Offer extends Component {
           </div>
           <div className='flex flex-row'>
             <span>{name}</span>
-            <span>{location == '' ? 'yes' : `${location}`} </span>
+            <span>{location === '' ? 'yes' : `${location}`} </span>
             <span>Tech Stack</span>
           </div>
         </div>

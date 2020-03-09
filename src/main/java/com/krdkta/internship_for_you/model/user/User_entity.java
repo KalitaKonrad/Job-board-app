@@ -1,12 +1,9 @@
-package com.krdkta.internship_for_you.model;
+package com.krdkta.internship_for_you.model.user;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -14,20 +11,21 @@ import java.util.Objects;
 @NoArgsConstructor
 public class User_entity {
 
-  //  private enum USERTYPE {
-  //    ADMIN,
-  //    USER
-  //  }
-
   private @Id @GeneratedValue(strategy = GenerationType.AUTO) Long id;
   private String username;
   private String password;
-  private String type;
 
-  public User_entity(String username, String password, String type) {
+  @Enumerated(EnumType.STRING)
+  private Usertype usertype;
+
+  public User_entity(String username, String password, Usertype usertype) {
     this.username = username;
     this.password = password;
-    this.type = type;
+    this.usertype = usertype;
+  }
+
+  public User_entity(Long id) {
+    this.id = id;
   }
 
   @Override
@@ -41,9 +39,8 @@ public class User_entity {
         + ", password='"
         + password
         + '\''
-        + ", type='"
-        + type
-        + '\''
+        + ", usertype="
+        + usertype
         + '}';
   }
 
@@ -55,43 +52,43 @@ public class User_entity {
     return Objects.equals(id, that.id)
         && Objects.equals(username, that.username)
         && Objects.equals(password, that.password)
-        && Objects.equals(type, that.type);
+        && usertype == that.usertype;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, username, password, type);
-  }
-
-  public Long getId() {
-    return id;
+    return Objects.hash(id, username, password, usertype);
   }
 
   public void setId(Long id) {
     this.id = id;
   }
 
-  public String getUsername() {
-    return username;
-  }
-
   public void setUsername(String username) {
     this.username = username;
-  }
-
-  public String getPassword() {
-    return password;
   }
 
   public void setPassword(String password) {
     this.password = password;
   }
 
-  public String getType() {
-    return type;
+  public void setUsertype(Usertype usertype) {
+    this.usertype = usertype;
   }
 
-  public void setType(String type) {
-    this.type = type;
+  public Long getId() {
+    return id;
+  }
+
+  public String getUsername() {
+    return username;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public Usertype getUsertype() {
+    return usertype;
   }
 }
