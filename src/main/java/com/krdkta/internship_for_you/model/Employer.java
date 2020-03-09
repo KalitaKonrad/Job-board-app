@@ -12,7 +12,8 @@ public class Employer {
   private String location;
   private String description;
 
-  @OneToMany private List<Offer> offerList;
+  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  private List<Offer> offerList;
 
   public Employer() {}
 

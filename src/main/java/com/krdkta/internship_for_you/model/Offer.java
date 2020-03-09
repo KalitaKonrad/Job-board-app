@@ -6,7 +6,6 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "CITIES")
 @Data
 public class Offer {
 
@@ -14,8 +13,12 @@ public class Offer {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @ManyToOne(fetch = FetchType.LAZY)
+  private Employer employer;
+
   private String location;
   private String name;
 
-  @OneToMany private List<Technology> technologies;
+  @OneToMany(fetch = FetchType.LAZY)
+  private List<Technology> technologies;
 }
