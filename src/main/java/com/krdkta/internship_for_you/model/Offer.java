@@ -14,6 +14,7 @@ public class Offer {
   private Long id;
 
   @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "offer_list")
   private Employer employer;
 
   private String location;
