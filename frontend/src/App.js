@@ -24,26 +24,34 @@ class App extends Component {
   constructor(props) {
     super(props);
   }
+  componentDidMount() {
+    this.props.fetchOffers();
+  }
 
   render() {
     return (
       <div className='container flex flex-col max-h-full max-w-full w-screen h-screen'>
         <Router>
-          <Navbar />
-          <button
+          <Switch>
+            <Route exact path='/'>
+              <Navbar />
+              <Offers />
+            </Route>
+            {/* <button
             className='container block mx-auto bg-blue-500 font-bold m-4 p-4 rounded-lg focus:outline-none'
             onClick={() => this.props.fetchOffers()}
           >
             Click
-          </button>
-          <Route path='/login'>
-            <Login />
-          </Route>
-          <Route path='/internship'>
-            <div className='container flex flex-col'>
-              <Offers />
-            </div>
-          </Route>
+          </button> */}
+            <Route exact path='/developer'>
+              <Navbar />
+              <Login />
+            </Route>
+            <Route exact path='/employer'>
+              <Navbar />
+              <Login />
+            </Route>
+          </Switch>
         </Router>
       </div>
     );

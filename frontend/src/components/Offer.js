@@ -6,16 +6,16 @@ class Offer extends Component {
 
     return (
       <div className='flex flex-row text-black p-3 m-3'>
-        <img src={require('../img/monitor.png')} className='object-left' />
+        <img src={require('../img/monitor.png')} className='object-left p-3 m-3' />
         <div className='flex flex-col justify-between'>
           <div className='flex flex-row justify-between'>
             {/* Description + salary */}
             <span>{description}</span>
             <span>Salary</span>
           </div>
-          <div className='flex flex-row'>
+          <div className='flex flex-row justify-between'>
             <span>{name}</span>
-            <span>{location === '' ? 'yes' : `${location}`} </span>
+            <span>{location == '' ? 'yes' : `${location}`} </span>
             <span>Tech Stack</span>
           </div>
         </div>
