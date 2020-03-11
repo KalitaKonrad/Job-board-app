@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -18,9 +19,8 @@ public class Employer {
   private String location;
   private String description;
 
-  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @Column(name = "offer_list")
-  private List<Offer> offerList;
+  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "employer")
+  private List<Offer> offerList = new ArrayList<>();
 
   public Employer(String name, String location, String description) {
     this.name = name;

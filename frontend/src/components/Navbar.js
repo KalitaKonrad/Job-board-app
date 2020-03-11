@@ -3,11 +3,11 @@ import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 class Navbar extends Component {
-  routeChange = () => {
-    let path = '/newPath';
-    let history = useHistory();
-    history.push(path);
-  };
+  // routeChange = () => {
+  //   let path = '/newPath';
+  //   let history = useHistory();
+  //   history.push(path);
+  // };
 
   render() {
     return (
@@ -17,14 +17,20 @@ class Navbar extends Component {
             <img className='w-16 h-16' src={require('../img/monitor.png')} alt='logo' />
           </div>
           <div>
-            <Link to='/' className='text-white-500 font-bold p-2 m-2 hover:text-blue-400 focus:outline-none'>
+            <Link to='/' className='text-white-500 font-bold p-4 mx-3 rounded-lg hover:bg-blue-400 focus:outline-none'>
               Home
             </Link>
-            <Link to='/developer' className='text-white-500 font-bold p-2 m-2 hover:text-blue-400 focus:outline-none'>
-              For Developers
+            <Link
+              to='/login'
+              className='text-white-500 font-bold p-4 mx-3 hover:bg-blue-400 rounded-lg focus:outline-none'
+            >
+              Login
             </Link>
-            <Link to='/employer' className='text-white-500 font-bold p-2 m-2 hover:text-blue-400 focus:outline-none'>
-              For Employers
+            <Link
+              to='/signup'
+              className='text-white-500 font-bold p-2 m-2 hover:bg-blue-400 p-4 mx-3 mr-12 rounded-lg focus:outline-none'
+            >
+              Sign Up
             </Link>
           </div>
         </nav>

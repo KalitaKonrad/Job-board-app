@@ -12,7 +12,7 @@ class Offers extends Component {
   render() {
     // return <div>{console.log(this.props.offers)}</div>;
     return (
-      <div className='flex flex-col p-2 m-2 font-bold'>
+      <div className='flex flex-col px-4 m-3 container'>
         {this.props.offers.offers.map(offer => (
           <Offer key={offer.id} description={offer.description} name={offer.name} location={offer.location} />
         ))}

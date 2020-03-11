@@ -1,12 +1,13 @@
 import React, { useEffect, Component } from 'react';
 import axios from './api/api_config';
-import Login from './components/Login';
+import SignUp from './components/SignUp';
 import Navbar from './components/Navbar';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Offers from './components/Offers';
 import { useSelector, useDispatch, connect } from 'react-redux';
 import allActions from './actions/index';
 import { fetchOffers } from './actions/fetchOffers';
+import Login from './components/Login';
 
 const mapStateToProps = state => {
   return {
@@ -43,11 +44,11 @@ class App extends Component {
           >
             Click
           </button> */}
-            <Route exact path='/developer'>
+            <Route exact path='/signup'>
               <Navbar />
-              <Login />
+              <SignUp />
             </Route>
-            <Route exact path='/employer'>
+            <Route exact path='/login'>
               <Navbar />
               <Login />
             </Route>

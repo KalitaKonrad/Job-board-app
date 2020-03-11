@@ -1,12 +1,16 @@
 package com.krdkta.internship_for_you.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Offer {
 
   @Id
@@ -14,12 +18,11 @@ public class Offer {
   private Long id;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "offer_list")
   private Employer employer;
 
   private String location;
   private String name;
 
-  @OneToMany(fetch = FetchType.LAZY)
+  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "offer")
   private List<Technology> technologies;
 }
