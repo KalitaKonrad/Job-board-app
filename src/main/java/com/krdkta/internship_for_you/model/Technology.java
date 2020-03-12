@@ -1,11 +1,15 @@
 package com.krdkta.internship_for_you.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
 public class Technology {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,5 +18,6 @@ public class Technology {
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private Offer offer;
 
-  private String name;
+  private String description;
+  private String techExpLevel;
 }

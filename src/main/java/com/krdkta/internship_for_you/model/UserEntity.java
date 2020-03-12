@@ -6,11 +6,11 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User_entity {
+@Entity
+public class UserEntity {
 
   private @Id @GeneratedValue(strategy = GenerationType.AUTO) Long id;
   private String email;

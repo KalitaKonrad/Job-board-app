@@ -8,19 +8,22 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
 @Data
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 // @Table(name = "employer")
 public class Employer {
+
   private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
-  private String name;
-  private String location;
-  private String description;
 
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "employer")
   private List<Offer> offerList = new ArrayList<>();
+
+  private String name;
+  private String location;
+  private String description;
+  private int companySize;
 
   public Employer(String name, String location, String description) {
     this.name = name;

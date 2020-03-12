@@ -7,10 +7,10 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 public class Offer {
 
   @Id
@@ -20,9 +20,11 @@ public class Offer {
   @ManyToOne(fetch = FetchType.LAZY)
   private Employer employer;
 
-  private String location;
-  private String name;
-
   @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "offer")
   private List<Technology> technologies;
+
+  private String location;
+  private String title;
+  private String description;
+  private String experienceLevel;
 }

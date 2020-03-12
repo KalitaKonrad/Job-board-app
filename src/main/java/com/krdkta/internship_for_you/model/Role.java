@@ -6,17 +6,17 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 public class Role {
 
   @Id private Long id;
 
   @OneToOne(fetch = FetchType.LAZY)
   @MapsId
-  private User_entity user_entity;
+  private UserEntity user_entity;
 
-  private Usertype usertype;
+  private UserType usertype;
 }
