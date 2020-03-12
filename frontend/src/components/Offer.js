@@ -9,7 +9,7 @@ class Offer extends Component {
     const { description, name, location } = this.props; //add salary and techstack
 
     return (
-      <div className='flex flex-row text-black p-3 m-3'>
+      <div className='flex flex-row text-black p-3 m-3 shadow-2xl border-l-2 rounded-lg'>
         <img src={require('../img/monitor.png')} className='object-left p-3 m-3' />
         <div className='flex flex-col justify-around w-full'>
           <div className='flex flex-row justify-between items-center'>

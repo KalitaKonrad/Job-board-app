@@ -4,9 +4,13 @@ export const FETCH_OFFERS_SUCCESS = 'FETCH_OFFERS_SUCCESS';
 export const FETCH_OFFERS_ERROR = 'FETCH_OFFERS_ERROR';
 export const FETCH_OFFERS_PENDING = 'FETCH_OFFERS_PENDING';
 
-export const fetchOffers = () => {
+export const fetchOffers = (name = '') => {
   return dispatch => {
-    const request = axios.get('/employers');
+    const request = axios.get('/offers', {
+      params: {
+        name: name
+      }
+    });
     dispatch(fetchOffersPending()); // tells redux that data is being fetched
     return request
       .then(res => {

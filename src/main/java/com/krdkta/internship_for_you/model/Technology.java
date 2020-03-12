@@ -18,6 +18,15 @@ public class Technology {
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private Offer offer;
 
-  private String description;
-  private String techExpLevel;
+  private String name;
+  private ExperienceLevel techExpLevel = ExperienceLevel.INTERN;
+
+  public Technology(String name) {
+    this.name = name;
+  }
+
+  public Technology(String name, ExperienceLevel techExpLevel) {
+    this.name = name;
+    this.techExpLevel = techExpLevel;
+  }
 }

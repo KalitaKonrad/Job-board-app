@@ -6,7 +6,6 @@ import { fetchOffers } from '../actions/fetchOffers';
 class Offers extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props);
   }
 
   render() {
