@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { history } from 'react-router-dom';
+
+import { addOffer } from '../actions/addOffer';
 
 class Navbar extends Component {
   render() {
@@ -39,7 +41,10 @@ class Navbar extends Component {
             >
               Sign Up
             </Link>
-            <Link className='rounded-lg focus:outline bg-pink-500 p-4 mx-3 hover:bg-pink-600 text-white-500 font-bold'>
+            <Link
+              to='/job'
+              className='rounded-lg focus:outline bg-pink-500 p-4 mx-3 hover:bg-pink-600 text-white-500 font-bold'
+            >
               Post a job
             </Link>
           </div>
@@ -50,6 +55,7 @@ class Navbar extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log(state.isLogged);
   return { isLogged: state.isLogged };
 };
 

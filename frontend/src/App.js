@@ -8,10 +8,12 @@ import { useSelector, useDispatch, connect } from 'react-redux';
 import allActions from './actions/index';
 import { fetchOffers } from './actions/fetchOffers';
 import Login from './components/Login';
+import JobForm from './components/JobForm';
 
 const mapStateToProps = state => {
   return {
-    offers: state.offers
+    offers: state.offers,
+    isLogged: state.isLogged
   };
 };
 
@@ -38,12 +40,6 @@ class App extends Component {
               <Navbar />
               <Offers />
             </Route>
-            {/* <button
-            className='container block mx-auto bg-blue-500 font-bold m-4 p-4 rounded-lg focus:outline-none'
-            onClick={() => this.props.fetchOffers()}
-          >
-            Click
-          </button> */}
             <Route exact path='/signup'>
               <Navbar />
               <SignUp />
@@ -51,6 +47,10 @@ class App extends Component {
             <Route exact path='/login'>
               <Navbar />
               <Login />
+            </Route>
+            <Route exact path='/job'>
+              <Navbar />
+              <JobForm />
             </Route>
           </Switch>
         </Router>
