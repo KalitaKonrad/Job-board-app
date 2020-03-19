@@ -1,7 +1,11 @@
 import { CHOOSE_JUNIOR, CHOOSE_MID, CHOOSE_SENIOR } from '../actions/changeExpLevel';
+import { ADD_TECHNOLOGY } from '../actions/addTechnology';
+import { SELECT_TECHNOLOGY } from '../actions/selectTechnology';
 
 const initialState = {
-  experienceLevel: 'JUNIOR'
+  experienceLevel: 'JUNIOR',
+  technologies: [],
+  selectedTechnology: ''
 }
 
 const postJobReducer = (state = initialState, action) => {
@@ -21,10 +25,19 @@ const postJobReducer = (state = initialState, action) => {
         ...state,
         experienceLevel: 'SENIOR'
       }
+    case ADD_TECHNOLOGY:
+      return {
+        ...state,
+        technologies: [...state.technologies, action.payload]
+      }
+    case SELECT_TECHNOLOGY:
+      return {
+        ...state,
+        selectedTechnology: action.payload
+      }
     default:
       return state;
   }
 }
 
-export const getLevel = state => state.experienceLevel;
 export default postJobReducer;

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { history } from 'react-router-dom';
 
-import { addOffer } from '../actions/addOffer';
+// import { addOffer } from '../actions/addOffer';
 
 class Navbar extends Component {
   render() {
@@ -19,7 +19,7 @@ class Navbar extends Component {
                 type='text'
                 placeholder='Search by company...'
                 className='rounded-lg focus:outline-none p-3 mx-2 text-black'
-                // add onChange
+              // add onChange
               />
               <button className='rounded-lg'>
                 <img src={require('../img/search.png')} width='32px' height='32px' className='mx-2' />
@@ -55,7 +55,6 @@ class Navbar extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state.isLogged);
   return { isLogged: state.isLogged };
 };
 
