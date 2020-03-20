@@ -5,5 +5,5 @@ export const CHOOSE_SENIOR = 'CHOOSE_SENIOR';
 export function changeExperienceLevel(level) {
   return {
     type: level
-  }
+  };
 }

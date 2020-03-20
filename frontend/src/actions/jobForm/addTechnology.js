@@ -1,8 +1,8 @@
 export const ADD_TECHNOLOGY = 'ADD_TECHNOLOGY';
 
-export function addTechnology(technologyName) {
+export function addTechnology(name) {
   return {
     type: ADD_TECHNOLOGY,
-    payload: technologyName
-  }
+    payload: name
+  };
 }

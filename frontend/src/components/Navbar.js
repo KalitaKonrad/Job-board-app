@@ -19,7 +19,7 @@ class Navbar extends Component {
                 type='text'
                 placeholder='Search by company...'
                 className='rounded-lg focus:outline-none p-3 mx-2 text-black'
-              // add onChange
+                // add onChange
               />
               <button className='rounded-lg'>
                 <img src={require('../img/search.png')} width='32px' height='32px' className='mx-2' />
