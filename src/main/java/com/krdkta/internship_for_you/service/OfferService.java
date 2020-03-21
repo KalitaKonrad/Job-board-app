@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,9 +27,6 @@ public class OfferService {
 
   public List<Offer> getAllOffers(String companyName) {
     List<Offer> allOffers = (List<Offer>) offerRepository.findAll();
-    if (allOffers == null) {
-      return new ArrayList<>();
-    }
     return allOffers.stream()
         .filter(
             offer ->

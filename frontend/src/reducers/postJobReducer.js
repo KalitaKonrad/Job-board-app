@@ -1,16 +1,21 @@
-import { CHOOSE_JUNIOR, CHOOSE_MID, CHOOSE_SENIOR } from '../actions/jobForm/changeExpLevel';
+import { CHOOSE_INTERN, CHOOSE_JUNIOR, CHOOSE_MID, CHOOSE_SENIOR } from '../actions/jobForm/changeExpLevel';
 import { ADD_TECHNOLOGY } from '../actions/jobForm/addTechnology';
 import { SELECT_TECHNOLOGY } from '../actions/jobForm/selectTechnology';
 import { DELETE_TECHNOLOGY } from '../actions/jobForm/deleteTechnology';
 
 const initialState = {
-  experienceLevel: 'JUNIOR',
+  experienceLevel: 'INTERN',
   technologies: [],
   selectedTechnology: ''
 };
 
 const postJobReducer = (state = initialState, action) => {
   switch (action.type) {
+    case CHOOSE_INTERN:
+      return {
+        ...state,
+        experienceLevel: 'INTERN'
+      };
     case CHOOSE_JUNIOR:
       return {
         ...state,

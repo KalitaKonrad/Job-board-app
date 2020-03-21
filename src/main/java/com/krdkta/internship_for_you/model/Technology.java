@@ -1,5 +1,6 @@
 package com.krdkta.internship_for_you.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,23 +11,27 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "technology")
 public class Technology {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id")
   private Long id;
 
-  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @JsonIgnore
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "offer_id")
   private Offer offer;
 
+  @Column(name = "name")
   private String name;
-  private ExperienceLevel techExpLevel = ExperienceLevel.INTERN;
 
   public Technology(String name) {
     this.name = name;
   }
 
-  public Technology(String name, ExperienceLevel techExpLevel) {
+  public Technology(String name, Offer offer) {
     this.name = name;
-    this.techExpLevel = techExpLevel;
+    this.offer = offer;
   }
 }

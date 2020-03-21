@@ -56,9 +56,7 @@ public class EmployerService {
 
     List<Technology> technologies =
         Arrays.asList(
-            new Technology("Java", ExperienceLevel.INTERN),
-            new Technology("JavaScript", ExperienceLevel.INTERN),
-            new Technology("Spring", ExperienceLevel.INTERN));
+            new Technology("Java"), new Technology("JavaScript"), new Technology("Spring"));
 
     // EXAMPLE EMPLOYER
     Employer employer1 = new Employer("Google", "US", "IT Company", 2000000);
@@ -68,27 +66,19 @@ public class EmployerService {
 
     // EXAMPLE OFFERS
     Offer offer1 =
-        new Offer("New York", "Software Developer", "Lorem sripsum #1", ExperienceLevel.INTERN);
+        new Offer("Software Developer", "New York", "Lorem sripsum #1", ExperienceLevel.INTERN);
     Offer offer2 =
-        new Offer("Toronto", "Software Engineer", "Lorem sripsum #2", ExperienceLevel.JUNIOR);
+        new Offer("Software Engineer", "Toronto", "Lorem sripsum #2", ExperienceLevel.JUNIOR);
     Offer offer3 = new Offer("Krakow", "Ruby Developer", "Lorem sripsum #3", ExperienceLevel.MID);
     List<Offer> offers = Arrays.asList(offer1, offer2, offer3);
 
-    // LINKING UP DATA
+    employer1.setOfferList(offers);
+    offers.forEach(offer -> offer.setEmployer(employer1));
     offers.forEach(offer -> offer.setTechnologies(technologies));
+    technologies.forEach(technology -> technology.setOffer(offer1));
+    // LINKING UP DATA
     employer1.setOfferList(offers);
 
     employerRepository.saveAll(employers);
-    employerRepository
-        .getEmployerByName(employer1.getName())
-        .ifPresent(
-            e -> {
-              e.setOfferList(offers);
-              employerRepository.save(e);
-            });
-
-    //    saveEmployer(new Employer("Amazon", "UK", "Amazon in UK"));
-    //    saveEmployer(new Employer("Facebook", "US", "Facebook in US"));
-    //    saveEmployer(new Employer("Youtube", "US", "Youtube in US"));
   }
 }

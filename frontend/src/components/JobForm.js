@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
-import { changeExperienceLevel, CHOOSE_JUNIOR, CHOOSE_SENIOR, CHOOSE_MID } from '../actions/jobForm/changeExpLevel';
+import {
+  changeExperienceLevel,
+  CHOOSE_JUNIOR,
+  CHOOSE_SENIOR,
+  CHOOSE_MID,
+  CHOOSE_INTERN
+} from '../actions/jobForm/changeExpLevel';
 import { addTechnology } from '../actions/jobForm/addTechnology';
 import { selectTechnology } from '../actions/jobForm/selectTechnology';
 import { deleteTechnology } from '../actions/jobForm/deleteTechnology';
 import { connect } from 'react-redux';
+import axios from '../api/api_config';
 
 class JobForm extends Component {
   injectTechnologiesIntoForm = technologies => {
@@ -27,18 +34,44 @@ class JobForm extends Component {
     );
   };
 
-  validateForm = e => {
+  handleEnterClick = e => {
+    if (
+      e.key === 'Enter' &&
+      e.target.value !== '' &&
+      this.props.technologies.indexOf(this.props.selectedTechnology) == -1
+    ) {
+      this.props.onAddTechnologyClick(e.target.value);
+      document.getElementById('technology-search').value = '';
+    }
+  };
+
+  onSubmit = async e => {
     e.preventDefault();
     const title = document.getElementById('grid-job-title').value;
     const location = document.getElementById('grid-job-location').value;
     const description = document.getElementById('grid-job-description').value;
-    // TODO!!
+    await axios
+      .post('/offers', {
+        title: title,
+        location: location,
+        description: description,
+        technologies: this.props.technologies,
+        experienceLevel: this.props.experienceLevel
+      })
+      .then(res => {
+        if (res.status == 200) {
+          console.log(res);
+          // alert('Successfully added job offer!');
+        }
+      })
+      .catch(err => console.log(err));
+    // TODO
   };
 
   render() {
     return (
       <div className='mx-auto p-4 m-4 shadow-md border-2 border-darker-2'>
-        <form className='w-full max-w-lg flex flex-col' onSubmit={this.validateForm} noValidate>
+        <form className='w-full max-w-lg flex flex-col' onSubmit={this.onSubmit}>
           <span className='block w-full font-bold text-black text-2xl mb-6 p-4 text-center'>Post a job</span>
           <div className='flex'>
             <div className='w-full w-1/2 px-3 mb-6 md:mb-0'>
@@ -50,6 +83,7 @@ class JobForm extends Component {
               </label>
               <input
                 id='grid-job-title'
+                name='job-title'
                 type='text'
                 className='appearance-none block w-full bg-gray-200 text-black-700 rounded-lg py-3 px-4 mb-3 focus:outline-none'
                 placeholder='Job title..'
@@ -62,6 +96,7 @@ class JobForm extends Component {
               </label>
               <input
                 id='grid-job-location'
+                name='job-location'
                 type='text'
                 className='block w-full bg-gray-200 text-black rounded-lg py-3 px-4 mb-3 focus:outline-none'
                 placeholder='Location...'
@@ -79,6 +114,7 @@ class JobForm extends Component {
               </label>
               <textarea
                 id='grid-job-description'
+                name='job-description'
                 cols='40'
                 rows='5'
                 className='bg-gray-200 text-black rounded-lg py-3 px-4 mb-3 focus:outline-none resize-none'
@@ -90,6 +126,15 @@ class JobForm extends Component {
             Select experience level
           </span>
           <div className='flex w-full justify-center'>
+            <button
+              className='focus:outline-none uppercase bg-green-500 hover:bg-green-300 focus:bg-blue-500 text-white font-bold mx-2 py-2 px-4 rounded-lg'
+              onClick={e => {
+                e.preventDefault();
+                this.props.onExperienceClick(CHOOSE_INTERN);
+              }}
+            >
+              INTERN
+            </button>
             <button
               className='focus:outline-none uppercase bg-green-500 hover:bg-green-300 focus:bg-blue-500 text-white font-bold mx-2 py-2 px-4 rounded-lg'
               onClick={e => {
@@ -133,6 +178,7 @@ class JobForm extends Component {
               onChange={e => {
                 this.props.onTechnologyChange(e.target.value);
               }}
+              onKeyDown={e => this.handleEnterClick(e)}
             />
             <button
               className='rounded-lg bg-green-500 py-2 px-3 m-2 hover:bg-green-300 text-white font-bold text-center focus:outline-none'
