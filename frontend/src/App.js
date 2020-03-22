@@ -1,6 +1,6 @@
 import React, { useEffect, Component } from 'react';
 import axios from './api/api_config';
-import SignUp from './components/SignUp';
+import SignUpForm from './components/SignUpForm';
 import Navbar from './components/Navbar';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Offers from './components/Offers';
@@ -24,13 +24,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-  }
-  componentDidMount() {
-    this.props.fetchOffers();
-  }
-
   render() {
     return (
       <div className='container flex flex-col max-h-full max-w-full w-screen h-screen'>
@@ -42,7 +35,7 @@ class App extends Component {
             </Route>
             <Route exact path='/signup'>
               <Navbar />
-              <SignUp />
+              <SignUpForm />
             </Route>
             <Route exact path='/login'>
               <Navbar />

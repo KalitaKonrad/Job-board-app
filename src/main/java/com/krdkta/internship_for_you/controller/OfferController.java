@@ -24,8 +24,8 @@ public class OfferController {
   }
 
   @GetMapping(value = "offers")
-  public List<Offer> getAllEmployers() {
-    return offerService.getAllOffers();
+  public List<Offer> findAll() {
+    return offerService.findAll();
   }
 
   @GetMapping(value = "offers/{id}")
@@ -34,13 +34,14 @@ public class OfferController {
   }
 
   @PostMapping(value = "offers", consumes = "application/json")
-  public void addOffer(@RequestBody Offer offer) {
+  public Offer addOffer(@RequestBody Offer offer) {
     offer.setTechnologies(
         offer.getTechnologies().stream()
             .map(technology -> new Technology(technology.getName(), offer))
             .collect(Collectors.toList()));
     offer.setEmployer(employerService.getEmployerById(1L)); // TODO: implement dynamic employer_id
     offerService.saveOffer(offer);
+    return offer;
   }
 
   @PutMapping(value = "offers/{id}")

@@ -21,11 +21,11 @@ public class OfferService {
     this.offerRepository = offerRepository;
   }
 
-  public List<Offer> getAllOffers() {
+  public List<Offer> findAll() {
     return (List<Offer>) offerRepository.findAll();
   }
 
-  public List<Offer> getAllOffers(String companyName) {
+  public List<Offer> findAll(String companyName) {
     List<Offer> allOffers = (List<Offer>) offerRepository.findAll();
     return allOffers.stream()
         .filter(
@@ -38,8 +38,8 @@ public class OfferService {
     offerRepository.save(offer);
   }
 
-  public List<Offer> getOffersByTitleContaining(String title) {
-    return offerRepository.getOffersByTitleContains(title);
+  public List<Offer> getOffersByTitleContaining(String position) {
+    return offerRepository.getOffersByPositionContains(position);
   }
 
   public List<Offer> getOffersByEmployerContains(Employer employer) {

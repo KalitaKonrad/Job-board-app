@@ -9,7 +9,7 @@ const initialState = {
   selectedTechnology: ''
 };
 
-const postJobReducer = (state = initialState, action) => {
+const JobReducer = (state = initialState, action) => {
   switch (action.type) {
     case CHOOSE_INTERN:
       return {
@@ -51,4 +51,4 @@ const postJobReducer = (state = initialState, action) => {
   }
 };
 
-export default postJobReducer;
+export default JobReducer;

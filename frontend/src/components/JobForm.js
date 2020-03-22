@@ -47,12 +47,12 @@ class JobForm extends Component {
 
   onSubmit = async e => {
     e.preventDefault();
-    const title = document.getElementById('grid-job-title').value;
+    const position = document.getElementById('grid-job-title').value;
     const location = document.getElementById('grid-job-location').value;
     const description = document.getElementById('grid-job-description').value;
     await axios
       .post('/offers', {
-        title: title,
+        position: position,
         location: location,
         description: description,
         technologies: this.props.technologies,
@@ -79,14 +79,14 @@ class JobForm extends Component {
                 htmlFor='grid-job-title'
                 className='block uppercase tracking-wide text-gray-700 font-bold py-3 px-4 mb-3'
               >
-                Job title
+                Job position
               </label>
               <input
                 id='grid-job-title'
                 name='job-title'
                 type='text'
                 className='appearance-none block w-full bg-gray-200 text-black-700 rounded-lg py-3 px-4 mb-3 focus:outline-none'
-                placeholder='Job title..'
+                placeholder='Job position..'
                 required
               />
             </div>
@@ -117,6 +117,7 @@ class JobForm extends Component {
                 name='job-description'
                 cols='40'
                 rows='5'
+                placeholder='Job description...'
                 className='bg-gray-200 text-black rounded-lg py-3 px-4 mb-3 focus:outline-none resize-none'
                 required
               />
@@ -210,7 +211,7 @@ class JobForm extends Component {
 }
 
 const mapStateToProps = state => {
-  const { experienceLevel, technologies, selectedTechnology } = state.postJobForm;
+  const { experienceLevel, technologies, selectedTechnology } = state.JobForm;
 
   return {
     experienceLevel,
@@ -225,8 +226,8 @@ const mapDispatchToProps = dispatch => {
       dispatch(changeExperienceLevel(exp));
     },
 
-    onAddTechnologyClick: technologyName => {
-      dispatch(addTechnology(technologyName));
+    onAddTechnologyClick: name => {
+      dispatch(addTechnology(name));
     },
 
     onTechnologyChange: selectedTechnology => {

@@ -28,13 +28,16 @@ public class Offer {
   @OneToMany(mappedBy = "offer", cascade = CascadeType.ALL)
   private List<Technology> technologies;
 
-  private String title;
+  private String position;
   private String location;
   private String description;
+
+  @Enumerated(EnumType.STRING)
   private ExperienceLevel experienceLevel;
 
-  public Offer(String title, String location, String description, ExperienceLevel experienceLevel) {
-    this.title = title;
+  public Offer(
+      String position, String location, String description, ExperienceLevel experienceLevel) {
+    this.position = position;
     this.location = location;
     this.description = description;
     this.experienceLevel = experienceLevel;

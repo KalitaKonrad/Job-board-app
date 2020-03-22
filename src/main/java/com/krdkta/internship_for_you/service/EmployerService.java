@@ -69,7 +69,7 @@ public class EmployerService {
         new Offer("Software Developer", "New York", "Lorem sripsum #1", ExperienceLevel.INTERN);
     Offer offer2 =
         new Offer("Software Engineer", "Toronto", "Lorem sripsum #2", ExperienceLevel.JUNIOR);
-    Offer offer3 = new Offer("Krakow", "Ruby Developer", "Lorem sripsum #3", ExperienceLevel.MID);
+    Offer offer3 = new Offer("Ruby Developer", "Krakow", "Lorem sripsum #3", ExperienceLevel.MID);
     List<Offer> offers = Arrays.asList(offer1, offer2, offer3);
 
     employer1.setOfferList(offers);

@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { fetchOffers } from '../actions/fetchOffers';
 
 class Offers extends Component {
-  constructor(props) {
-    super(props);
+  componentDidMount() {
+    this.props.fetchOffers();
   }
 
   render() {
@@ -28,7 +28,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchOffers
+    fetchOffers: () => dispatch(fetchOffers(''))
   };
 };
 

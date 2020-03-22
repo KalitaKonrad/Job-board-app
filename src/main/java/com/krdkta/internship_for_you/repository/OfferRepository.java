@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface OfferRepository extends CrudRepository<Offer, Long> {
-  List<Offer> getOffersByTitleContains(String title);
+  List<Offer> getOffersByPositionContains(String position);
 
   List<Offer> getOffersByEmployerContains(Employer employer);
 
