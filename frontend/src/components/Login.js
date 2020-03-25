@@ -4,10 +4,8 @@ import { LOGIN_ENDPOINT } from './SignUpForm';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { LOGIN, LOGOUT, loginOrLogout, setUsertype, SET_DEVELOPER, SET_EMPLOYER } from '../actions/login';
+import { HOME_ENDPOINT, DEVELOPER } from '../api/endpoints';
 
-export const DEVELOPER = 'DEVELOPER';
-export const EMPLOYER = 'EMPLOYER';
-export const HOME_ENDPOINT = '/';
 const bcrypt = require('bcryptjs');
 
 class Login extends Component {
@@ -57,7 +55,7 @@ class Login extends Component {
     }
 
     return (
-      <div className='container flex justify-center mx-auto p-4 m-4'>
+      <div className='container flex font-bold justify-center mx-auto p-4 m-4'>
         <form
           className='flex flex-col items-center w-full max-w-xs bg-white shadow-md border-2 border-darken-2 rounded-lg px-8 pt-6 pb-8 mb-4'
           onSubmit={e => this.onSubmit(e)}

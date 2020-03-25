@@ -50,6 +50,14 @@ class JobForm extends Component {
     const position = document.getElementById('grid-job-title').value;
     const location = document.getElementById('grid-job-location').value;
     const description = document.getElementById('grid-job-description').value;
+    let minimum_salary = document.getElementById('minimum-salary').value;
+    let maximum_salary = document.getElementById('maximum-salary').value;
+    if (minimum_salary < maximum_salary) {
+      let temp = minimum_salary;
+      minimum_salary = maximum_salary;
+      maximum_salary = temp;
+    }
+
     await axios
       .post('/offers', {
         position: position,
@@ -59,19 +67,23 @@ class JobForm extends Component {
         experienceLevel: this.props.experienceLevel
       })
       .then(res => {
-        if (res.status == 200) {
-          console.log(res);
-          // alert('Successfully added job offer!');
+        if (res.status === 200) {
+          alert('Successfully added job offer!');
         }
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        alert('Something went wrong!');
+      });
     // TODO
   };
 
   render() {
     return (
-      <div className='mx-auto p-4 m-4 shadow-md border-2 border-darker-2'>
-        <form className='w-full max-w-lg flex flex-col' onSubmit={this.onSubmit}>
+      <div className='flex justify-center p-4 m-4'>
+        <form
+          className='w-full max-w-lg bg-white flex-shrink-0 shadow-md border-2 px-8 pt-6 pb-8 mb-4 border-darker-2 rounded-lg flex flex-col'
+          onSubmit={this.onSubmit}
+        >
           <span className='block w-full font-bold text-black text-2xl mb-6 p-4 text-center'>Post a job</span>
           <div className='flex'>
             <div className='w-full w-1/2 px-3 mb-6 md:mb-0'>
@@ -83,7 +95,7 @@ class JobForm extends Component {
               </label>
               <input
                 id='grid-job-title'
-                name='job-title'
+                name='grid-job-title'
                 type='text'
                 className='appearance-none block w-full bg-gray-200 text-black-700 rounded-lg py-3 px-4 mb-3 focus:outline-none'
                 placeholder='Job position..'
@@ -96,7 +108,7 @@ class JobForm extends Component {
               </label>
               <input
                 id='grid-job-location'
-                name='job-location'
+                name='grid-job-location'
                 type='text'
                 className='block w-full bg-gray-200 text-black rounded-lg py-3 px-4 mb-3 focus:outline-none'
                 placeholder='Location...'
@@ -110,7 +122,7 @@ class JobForm extends Component {
                 htmlFor='grid-job-description'
                 className='block uppercase tracking-wide text-gray-700 font-bold py-3 px-4 mb-3'
               >
-                Job description..
+                Job description
               </label>
               <textarea
                 id='grid-job-description'
@@ -123,9 +135,33 @@ class JobForm extends Component {
               />
             </div>
           </div>
-          <span className='font-bold block tracking-wide text-gray-700 uppercase py-3 px-4 mb-3'>
+          <span className='font-bold block tracking-wide py-3 px-4 mb-3 text-gray-700 uppercase'>Salary</span>
+          <div className='flex w-full justify-around text-gray-700 uppercase py-2 px-4'>
+            <input
+              type='number'
+              min='0'
+              step='100'
+              id='minimum-salary'
+              name='minimum-salary'
+              className='py-2 px-3 mb-3 rounded-lg bg-gray-200 focus:outline-none'
+              required
+            />
+            <span className='py-2 px-3 mb-3 text-gray-700 font-bold block tracking-wide uppercase focus:outline-none'>
+              -
+            </span>
+            <input
+              type='number'
+              min='0'
+              step='100'
+              id='maximum-salary'
+              name='maximum-salary'
+              className='py-2 px-3 mb-3 rounded-lg bg-gray-200 focus:outline-none'
+              required
+            />
+          </div>
+          <div className='font-bold block tracking-wide text-gray-700 uppercase py-3 px-4 mb-3'>
             Select experience level
-          </span>
+          </div>
           <div className='flex w-full justify-center'>
             <button
               className='focus:outline-none uppercase bg-green-500 hover:bg-green-300 focus:bg-blue-500 text-white font-bold mx-2 py-2 px-4 rounded-lg'
@@ -174,6 +210,7 @@ class JobForm extends Component {
             <input
               type='text'
               id='technology-search'
+              name='technology-search'
               className=' py-2 px-3 mb-3 rounded-lg bg-gray-200 focus:outline-none'
               placeholder='Search for technology..'
               onChange={e => {

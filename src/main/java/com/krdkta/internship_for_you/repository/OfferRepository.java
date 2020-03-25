@@ -15,4 +15,6 @@ public interface OfferRepository extends CrudRepository<Offer, Long> {
   List<Offer> getOffersByEmployerContains(Employer employer);
 
   List<Offer> getOffersByTechnologiesContaining(Technology technology);
+
+  List<Offer> getOffersBySalaryFromGreaterThan(int minimum_salary);
 }

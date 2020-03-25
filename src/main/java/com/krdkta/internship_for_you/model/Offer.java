@@ -35,6 +35,12 @@ public class Offer {
   @Enumerated(EnumType.STRING)
   private ExperienceLevel experienceLevel;
 
+  @Column(name = "salary_from")
+  private int salaryFrom;
+
+  @Column(name = "salary_to")
+  private int salaryTo;
+
   public Offer(
       String position, String location, String description, ExperienceLevel experienceLevel) {
     this.position = position;

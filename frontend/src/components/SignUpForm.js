@@ -64,12 +64,12 @@ class SignUpForm extends Component {
     }
 
     return (
-      <div className='container flex justify-center mx-auto p-4 m-4'>
+      <div className='container flex font-bold justify-center mx-auto p-4 m-4'>
         <form
           className='w-full flex flex-col items-center flex-shrink-0 max-w-xs shadow-md border-2 border-darker-2 bg-white rounded-lg px-8 pt-6 pb-8 mb-4'
           onSubmit={e => this.onSubmit(e)}
         >
-          <div className='p-3 m-3 text-bold text-2xl'>Get started for free</div>
+          <div className='py-3 m-3 text-bold text-2xl'>Get started for free</div>
           <div className='mb-4'>
             <label htmlFor='email' className='block text-sm font-bold mb-2'>
               Email

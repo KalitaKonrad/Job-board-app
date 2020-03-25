@@ -1,12 +1,12 @@
 import axios from '../api/api_config';
-
+import { OFFERS_ENDPOINT } from '../api/endpoints';
 export const FETCH_OFFERS_SUCCESS = 'FETCH_OFFERS_SUCCESS';
 export const FETCH_OFFERS_ERROR = 'FETCH_OFFERS_ERROR';
 export const FETCH_OFFERS_PENDING = 'FETCH_OFFERS_PENDING';
 
 export const fetchOffers = (name = '') => {
   return dispatch => {
-    const request = axios.get('/offers', {
+    const request = axios.get(OFFERS_ENDPOINT, {
       params: {
         name: name
       }

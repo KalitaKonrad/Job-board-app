@@ -9,11 +9,16 @@ class Offers extends Component {
   }
 
   render() {
-    // return <div>{console.log(this.props.offers)}</div>;
     return (
-      <div className='flex flex-col px-4 m-3 container'>
+      <div className='flex flex-col mx-auto px-4 m-3 container'>
         {this.props.offers.offers.map(offer => (
-          <Offer key={offer.id} description={offer.description} name={offer.name} location={offer.location} />
+          <Offer
+            key={offer.id}
+            position={offer.position}
+            description={offer.description}
+            location={offer.location}
+            technologies={offer.technologies}
+          />
         ))}
       </div>
     );
@@ -21,6 +26,7 @@ class Offers extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log(state.offers);
   return {
     offers: state.offers
   };
