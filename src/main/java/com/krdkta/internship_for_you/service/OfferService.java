@@ -63,4 +63,9 @@ public class OfferService {
               this.saveOffer(offer);
             });
   }
+
+  public List<Offer> getOffersWithOffset(int offset, int limit) {
+    List<Offer> offers = (List<Offer>) offerRepository.findAll();
+    return offers.stream().skip(offset).limit(limit).collect(Collectors.toList());
+  }
 }

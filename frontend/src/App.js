@@ -11,12 +11,14 @@ import JobForm from './components/JobForm';
 import SearchBar from './components/SearchBar';
 import UsageData from './components/UsageData';
 import CompanyList from './components/CompanyList';
+import { OFFERS_ENDPOINT, HOME_ENDPOINT, LOGIN_ENDPOINT, SIGNUP_ENDPOINT, JOBFORM_ENDPOINT } from './api/endpoints';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 class App extends Component {
   render() {
     return (
       <div
-        className='w-screen h-screen bg-gray-100'
+        className='w-screen h-screen'
         style={{
           // backgroundImage: `url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80')`,
           // backgroundImage: `url('https://cdn.pixabay.com/photo/2016/03/09/09/22/workplace-1245776_960_720.jpg')`,
@@ -34,24 +36,28 @@ class App extends Component {
       >
         <Router>
           <Switch>
-            <Route exact path='/'>
+            <Route exact path={HOME_ENDPOINT}>
               <Navbar />
               <SearchBar />
               <UsageData />
-              {/* <CompanyList /> */}
-              <Offers />
             </Route>
-            <Route exact path='/signup'>
+            <Route exact path={SIGNUP_ENDPOINT}>
               <Navbar />
               <SignUpForm />
             </Route>
-            <Route exact path='/login'>
+            <Route exact path={LOGIN_ENDPOINT}>
               <Navbar />
               <Login />
             </Route>
-            <Route exact path='/job'>
+            <Route exact path={JOBFORM_ENDPOINT}>
               <Navbar />
               <JobForm />
+            </Route>
+            <Route exact path={OFFERS_ENDPOINT}>
+              <div className='bg-green-400'>
+                <Navbar />
+                <Offers />
+              </div>
             </Route>
           </Switch>
         </Router>
@@ -63,13 +69,15 @@ class App extends Component {
 const mapStateToProps = state => {
   return {
     offers: state.offers,
-    isLogged: state.isLogged
+    isLogged: state.isLogged,
+    offset: state.offers.offset,
+    hasMoreItems: state.offers.hasMoreItems
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchOffers: () => dispatch(fetchOffers())
+    fetchOffers: offset => dispatch(fetchOffers(offset))
   };
 };
 

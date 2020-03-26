@@ -25,12 +25,20 @@ public class OfferController {
 
   @GetMapping(value = "offers")
   public List<Offer> findAll() {
+    System.out.println("working");
+
     return offerService.findAll();
   }
 
   @GetMapping(value = "offers/{id}")
   public Offer getEmployer(@PathVariable long id) {
     return offerService.getOfferById(id);
+  }
+
+  @GetMapping(value = "offers/offset/{offset}&{limit}")
+  public List<Offer> getNextOffersWithGivenOffset(
+      @PathVariable int offset, @PathVariable int limit) {
+    return offerService.getOffersWithOffset(offset, limit);
   }
 
   @PostMapping(value = "offers", consumes = "application/json")

@@ -1,17 +1,19 @@
 import axios from '../api/api_config';
 import { OFFERS_ENDPOINT } from '../api/endpoints';
+import { LIMIT_ITEMS_COUNT_FETCH } from '../reducers/offerReducer';
+
 export const FETCH_OFFERS_SUCCESS = 'FETCH_OFFERS_SUCCESS';
 export const FETCH_OFFERS_ERROR = 'FETCH_OFFERS_ERROR';
 export const FETCH_OFFERS_PENDING = 'FETCH_OFFERS_PENDING';
 
-export const fetchOffers = (name = '') => {
+export const fetchOffers = (offset = 0) => {
   return dispatch => {
-    const request = axios.get(OFFERS_ENDPOINT, {
+    const request = axios.get(`${OFFERS_ENDPOINT}/offset/${offset}&${LIMIT_ITEMS_COUNT_FETCH}`, {
       params: {
-        name: name
+        offset: offset
       }
     });
-    dispatch(fetchOffersPending()); // tells redux that data is being fetched
+    dispatch(fetchOffersPending());
     return request
       .then(res => {
         dispatch(fetchOffersSuccess(res.data));
@@ -23,7 +25,6 @@ export const fetchOffers = (name = '') => {
 };
 
 export function fetchOffersSuccess(offers) {
-  // action creator
   return {
     type: FETCH_OFFERS_SUCCESS,
     payload: offers
@@ -31,7 +32,6 @@ export function fetchOffersSuccess(offers) {
 }
 
 export function fetchOffersError(error) {
-  // action creator
   return {
     type: FETCH_OFFERS_ERROR,
     payload: error
@@ -39,7 +39,6 @@ export function fetchOffersError(error) {
 }
 
 export function fetchOffersPending() {
-  // action creator
   return {
     type: FETCH_OFFERS_PENDING
   };
