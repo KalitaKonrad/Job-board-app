@@ -5,14 +5,13 @@ import Navbar from './components/Navbar';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Offers from './components/Offers';
 import { useSelector, useDispatch, connect } from 'react-redux';
-import { fetchOffers } from './actions/fetchOffers';
+import { fetchOffers, clearOffers } from './actions/fetchOffers';
 import Login from './components/Login';
 import JobForm from './components/JobForm';
 import SearchBar from './components/SearchBar';
 import UsageData from './components/UsageData';
 import CompanyList from './components/CompanyList';
 import { OFFERS_ENDPOINT, HOME_ENDPOINT, LOGIN_ENDPOINT, SIGNUP_ENDPOINT, JOBFORM_ENDPOINT } from './api/endpoints';
-import InfiniteScroll from 'react-infinite-scroll-component';
 
 class App extends Component {
   render() {
@@ -36,7 +35,7 @@ class App extends Component {
       >
         <Router>
           <Switch>
-            <Route exact path={HOME_ENDPOINT}>
+            <Route exact path={HOME_ENDPOINT} onLoad={this.props.clearOffers}>
               <Navbar />
               <SearchBar />
               <UsageData />
@@ -54,7 +53,7 @@ class App extends Component {
               <JobForm />
             </Route>
             <Route exact path={OFFERS_ENDPOINT}>
-              <div className='bg-green-400'>
+              <div className='bg-green-400 w-full min-h-screen'>
                 <Navbar />
                 <Offers />
               </div>
@@ -77,7 +76,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchOffers: offset => dispatch(fetchOffers(offset))
+    fetchOffers: offset => dispatch(fetchOffers(offset)),
+    clearOffers: () => dispatch(clearOffers())
   };
 };
 

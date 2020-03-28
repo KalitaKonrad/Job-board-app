@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,15 +16,15 @@ import java.util.List;
 public class Employer {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "emp_id")
+  @Column(name = "employer_id")
   private Long id;
 
   @OneToMany(
       fetch = FetchType.LAZY,
       mappedBy = "employer",
-      cascade = {CascadeType.ALL},
+      cascade = CascadeType.ALL,
       orphanRemoval = true)
-  private List<Offer> offerList;
+  private List<Offer> offerList = new ArrayList<>();
 
   @Column(name = "name", unique = true, nullable = false, length = 100)
   private String name;

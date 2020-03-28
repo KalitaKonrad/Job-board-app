@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -22,11 +23,11 @@ public class Offer {
 
   @JsonIgnore
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "emp_id", nullable = false)
+  @JoinColumn(name = "employer_id", nullable = false)
   private Employer employer;
 
-  @OneToMany(mappedBy = "offer", cascade = CascadeType.ALL)
-  private List<Technology> technologies;
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "offer", cascade = CascadeType.ALL)
+  private List<Technology> technologies = new ArrayList<>();
 
   private String position;
   private String location;
@@ -35,11 +36,11 @@ public class Offer {
   @Enumerated(EnumType.STRING)
   private ExperienceLevel experienceLevel;
 
-  @Column(name = "salary_from")
-  private int salaryFrom;
+  @Column(name = "minimum_salary")
+  private int minimumSalary;
 
-  @Column(name = "salary_to")
-  private int salaryTo;
+  @Column(name = "maximum_salary")
+  private int maximumSalary;
 
   public Offer(
       String position, String location, String description, ExperienceLevel experienceLevel) {

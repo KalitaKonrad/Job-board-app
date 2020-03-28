@@ -1,6 +1,20 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { fetchOffers, updateKeywords, updateLocation } from '../actions/fetchOffers';
+import { Link } from 'react-router-dom';
 
 class SearchBar extends Component {
+  onFindJobsClick = () => {
+    const keywords = document.getElementById('job-keywords').value;
+    const location = document.getElementById('job-location').value;
+
+    updateKeywords(keywords);
+    updateLocation(location);
+    // const { offset, fetchOffers } = this.props;
+
+    // fetchOffers(offset, keywords, location);
+  };
+
   render() {
     return (
       <div className='flex flex-col items-center justify-center w-full pt-24 pb-12'>
@@ -8,26 +22,44 @@ class SearchBar extends Component {
         <div className='flex container mx-auto justify-center w-full my-16 pt-16'>
           <input
             type='text'
-            className='rounded-sm px-4 shadow-lg focus:outline-none text-gray-700 w-1/4 h-12 shadow-2xl'
-            id='job-title-or-keyword'
-            name='job-title-or-keyword'
+            className='rounded-sm px-4 focus:outline-none text-gray-700 w-1/4 h-12 '
+            id='job-keywords'
+            name='job-keywords'
             placeholder='Job Title or Keywords'
             required
           />
           <input
             type='text'
-            id='location'
-            name='location'
+            id='job-location'
+            name='job-location'
             placeholder='Location'
-            className='rounded-sm px-4 shadow-lg focus:outline-none text-gray-700 w-1/5 h-12 shadow-2xl'
+            className='rounded-sm px-4 focus:outline-none text-gray-700 w-1/5 h-12'
           />
-          <button className='bg-pink-500 p-3 text-white font-bold rounded-sm text-center uppercase shadow-2xl focus:outline-none hover:bg-pink-600 cursor-pointer'>
+          <Link
+            to='/offers'
+            className='bg-pink-500 p-3 text-white font-bold rounded-sm text-center uppercase shadow-2xl focus:outline-none hover:bg-pink-600 cursor-pointer'
+            onClick={() => this.onFindJobsClick()}
+          >
             Find jobs
-          </button>
+          </Link>
         </div>
       </div>
     );
   }
 }
 
-export default SearchBar;
+const mapStateToProps = state => {
+  return {
+    offset: state.offers.offset
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchOffers: (offset, keywords, location) => dispatch(fetchOffers(offset, keywords, location)),
+    updateKeywords: keywords => dispatch(updateKeywords(keywords)),
+    updateLocation: location => dispatch(updateLocation(location))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);

@@ -7,12 +7,12 @@ import NoMoreOffers from './NoMoreOffers';
 
 class Offers extends Component {
   componentDidMount() {
-    this.props.fetchOffers();
+    const { offset, fetchOffers, keywords, location } = this.props;
+    fetchOffers(offset, keywords, location);
   }
 
   render() {
     const { offers, offset, fetchOffers, hasMoreItems } = this.props;
-    console.log(offers);
 
     return (
       <div className='flex flex-col w-3/4 mx-auto container'>
@@ -48,7 +48,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchOffers: offset => dispatch(fetchOffers(offset))
+    fetchOffers: (offset, keywords, location) => dispatch(fetchOffers(offset, keywords, location))
   };
 };
 

@@ -23,22 +23,23 @@ public class OfferController {
     this.employerService = employerService;
   }
 
-  @GetMapping(value = "offers")
-  public List<Offer> findAll() {
-    System.out.println("working");
-
-    return offerService.findAll();
-  }
+  //  @GetMapping(value = "offers")
+  //  public List<Offer> findAll() {
+  //    return offerService.findAll();
+  //  }
 
   @GetMapping(value = "offers/{id}")
   public Offer getEmployer(@PathVariable long id) {
     return offerService.getOfferById(id);
   }
 
-  @GetMapping(value = "offers/offset/{offset}&{limit}")
+  @GetMapping(value = "offers")
   public List<Offer> getNextOffersWithGivenOffset(
-      @PathVariable int offset, @PathVariable int limit) {
-    return offerService.getOffersWithOffset(offset, limit);
+      @RequestParam("offset") int offset,
+      @RequestParam("limit") int limit,
+      @RequestParam("keywords") String keywords,
+      @RequestParam("location") String location) {
+    return offerService.findOffersWithGivenConstraints(offset, limit, keywords, location);
   }
 
   @PostMapping(value = "offers", consumes = "application/json")

@@ -1,13 +1,22 @@
-import { FETCH_OFFERS_PENDING, FETCH_OFFERS_SUCCESS, FETCH_OFFERS_ERROR } from '../actions/fetchOffers';
+import {
+  FETCH_OFFERS_PENDING,
+  FETCH_OFFERS_SUCCESS,
+  FETCH_OFFERS_ERROR,
+  CLEAR_OFFERS,
+  UPDATE_KEYWORDS,
+  UPDATE_LOCATION
+} from '../actions/fetchOffers';
 
-export const LIMIT_ITEMS_COUNT_FETCH = 10;
+export const LIMIT_ITEMS_COUNT_FETCH = 20;
 
 const initialState = {
   pending: false,
   offers: [],
   hasMoreItems: true,
   offset: 0,
-  error: null
+  error: null,
+  keywords: '',
+  location: ''
 };
 
 const offerReducer = (state = initialState, action) => {
@@ -17,7 +26,6 @@ const offerReducer = (state = initialState, action) => {
       if (action.payload.length === 0) {
         isThereMoreOffers = false;
       }
-      console.log(action.payload);
       return {
         ...state,
         offset: state.offset + LIMIT_ITEMS_COUNT_FETCH,
@@ -35,6 +43,22 @@ const offerReducer = (state = initialState, action) => {
       return {
         ...state,
         pending: true
+      };
+    case CLEAR_OFFERS:
+      return {
+        ...state,
+        offers: [],
+        offset: 0
+      };
+    case UPDATE_KEYWORDS:
+      return {
+        ...state,
+        keywords: action.payload
+      };
+    case UPDATE_LOCATION:
+      return {
+        ...state,
+        location: action.payload
       };
     default:
       return state;
