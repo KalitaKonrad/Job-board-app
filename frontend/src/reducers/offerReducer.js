@@ -48,7 +48,9 @@ const offerReducer = (state = initialState, action) => {
       return {
         ...state,
         offers: [],
-        offset: 0
+        offset: 0,
+        keywords: '',
+        location: ''
       };
     case UPDATE_KEYWORDS:
       return {

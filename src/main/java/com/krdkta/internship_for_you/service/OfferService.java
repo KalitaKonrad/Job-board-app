@@ -21,7 +21,6 @@ public class OfferService {
   }
 
   public List<Offer> findAll() {
-    System.out.println("BLABLABLLALBALBLABLABLLABL");
     return (List<Offer>) offerRepository.findAll();
   }
 
@@ -38,18 +37,9 @@ public class OfferService {
     offerRepository.save(offer);
   }
 
-  public List<Offer> findOffersByTitleContaining(String position) {
-    return offerRepository.findOffersByPositionContains(position);
-  }
-
   public List<Offer> findOffersByEmployerContains(Employer employer) {
     return offerRepository.findOffersByEmployerContains(employer);
   }
-
-  //  public List<Offer> findOffersByTechnologyName(@PathVariable String name) {
-  //    Technology technology = new Technology(name);
-  //    return offerRepository.findOffersByTechnologiesContaining(technology);
-  //  }
 
   public Offer getOfferById(Long id) {
     return offerRepository.findById(id).orElse(null);
@@ -64,34 +54,51 @@ public class OfferService {
             });
   }
 
-  public List<Offer> findOffersAll(int offset, int limit) {
-    List<Offer> offers = (List<Offer>) offerRepository.findAll();
-    return offers.stream().skip(offset).limit(limit).collect(Collectors.toList());
-  }
-
-  public List<Offer> findOffersWithGivenConstraints(
+  public List<Offer> findOffersWithConstraints(
       int offset, int limit, String keywords, String location) {
 
-    List<Offer> offers = (List<Offer>) offerRepository.findAll();
     String keywordsLowerCase = keywords.toLowerCase();
-    String locationToLowerCase = location.toLowerCase();
+    String locationToLowerCase = location.toLowerCase().toLowerCase();
+    List<Offer> offers = (List<Offer>) offerRepository.findAll();
+
+    if (keywords.isEmpty() && location.isEmpty()) {
+      return offers.stream().skip(offset).limit(limit).collect(Collectors.toList());
+    }
+
+    if (keywords.isEmpty()) {
+      return offers.stream()
+          .filter(offer -> offer.getLocation().toLowerCase().contains(locationToLowerCase))
+          .skip(offset)
+          .limit(limit)
+          .collect(Collectors.toList());
+    }
+
+    if (location.isEmpty()) {
+      return offers.stream()
+          .filter(
+              offer ->
+                  (offer.getPosition().toLowerCase().contains(keywordsLowerCase))
+                      || offer.getTechnologies().stream()
+                          .map(Technology::getName)
+                          .map(String::toLowerCase)
+                          .anyMatch(technologyName -> technologyName.contains(keywordsLowerCase)))
+          .skip(offset)
+          .limit(limit)
+          .collect(Collectors.toList());
+    }
+
     return offers.stream()
         .filter(
             offer ->
                 offer.getLocation().toLowerCase().contains(locationToLowerCase)
-                    || offer.getPosition().toLowerCase().contains(keywordsLowerCase)
-                    || offer.getTechnologies().stream()
-                        .map(Technology::getName)
-                        .map(String::toLowerCase)
-                        .anyMatch(technologyName -> technologyName.contains(keywordsLowerCase)))
+                    && (offer.getPosition().toLowerCase().contains(keywordsLowerCase)
+                        || offer.getTechnologies().stream()
+                            .map(Technology::getName)
+                            .map(String::toLowerCase)
+                            .anyMatch(
+                                technologyName -> technologyName.contains(keywordsLowerCase))))
         .skip(offset)
         .limit(limit)
         .collect(Collectors.toList());
-    //    String[] splitKeywords = titleOrKeywords.split(" ");
-
-    //    List<Offer> offers = offerRepository.findOffersByPositionContains(titleOrKeywords);
-    //    offers.addAll(offerRepository.findOffersByTechnologiesContaining(titleOrKeywords));
-    //    offers.addAll(offerRepository.findOffersByLocationContaining(location));
-    //    return offers.stream().distinct().collect(Collectors.toList());
   }
 }

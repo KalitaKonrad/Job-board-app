@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchOffers, updateKeywords, updateLocation } from '../actions/fetchOffers';
+import { fetchOffers } from '../actions/fetchOffers';
 import { Link } from 'react-router-dom';
+import { updateKeywords, updateLocation } from '../actions/fetchOffers';
 
 class SearchBar extends Component {
   onFindJobsClick = () => {
     const keywords = document.getElementById('job-keywords').value;
     const location = document.getElementById('job-location').value;
+    const { updateKeywords, updateLocation } = this.props;
 
     updateKeywords(keywords);
     updateLocation(location);
-    // const { offset, fetchOffers } = this.props;
-
-    // fetchOffers(offset, keywords, location);
   };
 
   render() {

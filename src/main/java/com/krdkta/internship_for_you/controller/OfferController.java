@@ -23,11 +23,6 @@ public class OfferController {
     this.employerService = employerService;
   }
 
-  //  @GetMapping(value = "offers")
-  //  public List<Offer> findAll() {
-  //    return offerService.findAll();
-  //  }
-
   @GetMapping(value = "offers/{id}")
   public Offer getEmployer(@PathVariable long id) {
     return offerService.getOfferById(id);
@@ -39,7 +34,7 @@ public class OfferController {
       @RequestParam("limit") int limit,
       @RequestParam("keywords") String keywords,
       @RequestParam("location") String location) {
-    return offerService.findOffersWithGivenConstraints(offset, limit, keywords, location);
+    return offerService.findOffersWithConstraints(offset, limit, keywords, location);
   }
 
   @PostMapping(value = "offers", consumes = "application/json")

@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { fetchOffers } from '../actions/fetchOffers';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import NoMoreOffers from './NoMoreOffers';
+import { faCog } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class Offers extends Component {
   componentDidMount() {
@@ -12,16 +14,21 @@ class Offers extends Component {
   }
 
   render() {
-    const { offers, offset, fetchOffers, hasMoreItems } = this.props;
+    const { offers, offset, fetchOffers, keywords, location, hasMoreItems } = this.props;
 
     return (
       <div className='flex flex-col w-3/4 mx-auto container'>
         <InfiniteScroll
+          className='flex flex-col items-center'
           dataLength={offers.offers.length}
-          next={() => fetchOffers(offset)}
+          next={() => fetchOffers(offset, keywords, location)}
           hasMore={hasMoreItems}
           endMessage={<NoMoreOffers />}
-          loader={<h3>Loading...</h3>}
+          loader={
+            <span className='p-2 m-2'>
+              <FontAwesomeIcon icon={faCog} className='fa-spin' size='5x' />
+            </span>
+          }
         >
           {offers.offers.map(offer => (
             <Offer
@@ -42,6 +49,8 @@ const mapStateToProps = state => {
   return {
     offers: state.offers,
     offset: state.offers.offset,
+    keywords: state.offers.keywords,
+    location: state.offers.location,
     hasMoreItems: state.offers.hasMoreItems
   };
 };

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class NavbarBtn extends Component {
   render() {
@@ -11,7 +13,9 @@ class NavbarBtn extends Component {
           to={endpoint}
           className='flex justify-around items-center font-bold mx-2 hover:text-orange-500 rounded-lg focus:outline-none'
         >
-          <img src={require(`../../img/${img}.png`)} alt={img} className='w-4 h-auto mx-3' />
+          <span className='px-3'>
+            <FontAwesomeIcon icon={faUser} />
+          </span>
           {text}
         </Link>
       </div>

@@ -11,16 +11,14 @@ export const UPDATE_LOCATION = 'UPDATE_LOCATION';
 
 export const fetchOffers = (offset = 0, keywords = '', location = '') => {
   return dispatch => {
-    const request = axios.get(
-      `${OFFERS_ENDPOINT}/?offset=${offset}&limit=${LIMIT_ITEMS_COUNT_FETCH}&keywords=${keywords}&location=${location}`,
-      {
-        params: {
-          offset: offset,
-          keywords: keywords,
-          location: location
-        }
+    const request = axios.get(`${OFFERS_ENDPOINT}`, {
+      params: {
+        offset: offset,
+        limit: LIMIT_ITEMS_COUNT_FETCH,
+        keywords: keywords,
+        location: location
       }
-    );
+    });
     dispatch(fetchOffersPending());
     return request
       .then(res => {

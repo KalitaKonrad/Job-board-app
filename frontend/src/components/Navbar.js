@@ -13,16 +13,6 @@ class Navbar extends Component {
       <div className='flex justify-center text-lg w-full text-white'>
         <nav className='flex container items-center justify-around flex-wrap px-4 py-3'>
           <LogoBtn />
-          {/* <div className='flex items-center'>
-              <input
-                type='text'
-                placeholder='Search by company...'
-                className='rounded-lg focus:outline-none p-3 mx-2'
-              />
-              <button className='rounded-lg'>
-                <img src={require('../img/search.png')} width='32px' height='32px' className='mx-2' alt='search icon' />
-              </button>
-            </div> */}
           <div className='flex items-center justify-around'>
             <NavbarBtn endpoint={LOGIN_ENDPOINT} text='Login' img='user' />
             <NavbarBtn endpoint={SIGNUP_ENDPOINT} text='Sign up' img='user' />
@@ -45,4 +35,4 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {};
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
+export default connect(null, mapDispatchToProps)(Navbar);

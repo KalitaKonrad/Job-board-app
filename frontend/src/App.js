@@ -25,8 +25,8 @@ class App extends Component {
           backgroundBlendMode: 'darken',
           backgroundImage: `url('https://images.unsplash.com/photo-1559523182-a284c3fb7cff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80')`,
           backgroundPosition: 'center center',
-          backgroundColor: `rgba(0,0,0,0.4)`, // not working :/
-          backgroundSize: '100%',
+          backgroundColor: `rgba(0,0,0,0.4)`,
+          backgroundSize: 'cover',
           backgroundRepeat: 'noRepeat',
           transition: 'background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s',
           opacity: 1
@@ -35,7 +35,7 @@ class App extends Component {
       >
         <Router>
           <Switch>
-            <Route exact path={HOME_ENDPOINT} onLoad={this.props.clearOffers}>
+            <Route exact path={HOME_ENDPOINT}>
               <Navbar />
               <SearchBar />
               <UsageData />
