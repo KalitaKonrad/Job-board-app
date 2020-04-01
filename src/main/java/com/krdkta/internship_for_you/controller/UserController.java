@@ -1,6 +1,6 @@
 package com.krdkta.internship_for_you.controller;
 
-import com.krdkta.internship_for_you.model.User;
+import com.krdkta.internship_for_you.model.user.User;
 import com.krdkta.internship_for_you.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

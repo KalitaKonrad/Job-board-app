@@ -1,6 +1,6 @@
 package com.krdkta.internship_for_you.repository;
 
-import com.krdkta.internship_for_you.model.User;
+import com.krdkta.internship_for_you.model.user.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

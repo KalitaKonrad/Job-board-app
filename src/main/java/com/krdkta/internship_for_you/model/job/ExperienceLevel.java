@@ -1,4 +1,4 @@
-package com.krdkta.internship_for_you.model;
+package com.krdkta.internship_for_you.model.job;
 
 public enum ExperienceLevel {
   INTERN,

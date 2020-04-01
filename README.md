@@ -1,6 +1,6 @@
 # Internship-for-you
 
-### Web application allowing you to land your dream internship offer!
+### Web application allowing you to land your dream internship job!
 
 ## Installation
 

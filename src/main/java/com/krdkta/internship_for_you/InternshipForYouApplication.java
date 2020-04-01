@@ -1,10 +1,10 @@
 package com.krdkta.internship_for_you;
 
-import com.krdkta.internship_for_you.model.Employer;
-import com.krdkta.internship_for_you.model.ExperienceLevel;
-import com.krdkta.internship_for_you.model.Offer;
-import com.krdkta.internship_for_you.model.Technology;
-import com.krdkta.internship_for_you.repository.EmployerRepository;
+import com.krdkta.internship_for_you.model.company.Company;
+import com.krdkta.internship_for_you.model.job.ExperienceLevel;
+import com.krdkta.internship_for_you.model.job.Job;
+import com.krdkta.internship_for_you.model.user.Skill;
+import com.krdkta.internship_for_you.repository.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,16 +13,18 @@ import org.springframework.context.event.EventListener;
 import org.springframework.data.jpa.repository.Modifying;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @SpringBootApplication
 public class InternshipForYouApplication {
 
-  private EmployerRepository employerRepository;
+  private CompanyRepository companyRepository;
 
   @Autowired
-  InternshipForYouApplication(EmployerRepository employerRepository) {
-    this.employerRepository = employerRepository;
+  InternshipForYouApplication(CompanyRepository companyRepository) {
+    this.companyRepository = companyRepository;
   }
 
   public static void main(String[] args) {
@@ -34,49 +36,43 @@ public class InternshipForYouApplication {
   public void fillDB() {
     // EXAMPLE TECHNOLOGIES
 
-    List<Technology> technologies =
-        Arrays.asList(
-            new Technology("Java"), new Technology("JavaScript"), new Technology("Spring"));
+    Set<Skill> skills =
+        new HashSet<>(
+            Arrays.asList(new Skill("Java"), new Skill("JavaScript"), new Skill("Spring")));
 
     // EXAMPLE EMPLOYER
-    Employer employer1 = new Employer("Google", "US", "IT Company", 2000000);
-    Employer employer2 = new Employer("Amazon", "US", "IT Company", 300000);
-    Employer employer3 = new Employer("Facebook", "US", "IT Company", 500000);
-    List<Employer> employers = Arrays.asList(employer1, employer2, employer3);
+    Company company1 = new Company("Google", "US", "IT Company", 2000000);
+    Company company2 = new Company("Amazon", "US", "IT Company", 300000);
+    Company company3 = new Company("Facebook", "US", "IT Company", 500000);
+    List<Company> companies = Arrays.asList(company1, company2, company3);
 
     // EXAMPLE OFFERS
-    Offer offer1 =
-        new Offer("Software Developer", "New York", "Lorem sripsum #1", ExperienceLevel.INTERN);
-    Offer offer2 =
-        new Offer("Software Engineer", "Toronto", "Lorem sripsum #2", ExperienceLevel.JUNIOR);
-    Offer offer3 = new Offer("Ruby Developer", "Krakow", "Lorem sripsum #3", ExperienceLevel.MID);
-    Offer offer4 =
-        new Offer("Software Developer", "New York", "Lorem sripsum #1", ExperienceLevel.INTERN);
-    Offer offer5 =
-        new Offer("Software Engineer", "Toronto", "Lorem sripsum #2", ExperienceLevel.JUNIOR);
-    Offer offer6 = new Offer("Ruby Developer", "Krakow", "Lorem sripsum #3", ExperienceLevel.MID);
-    Offer offer7 =
-        new Offer("Software Developer", "New York", "Lorem sripsum #1", ExperienceLevel.INTERN);
-    Offer offer8 =
-        new Offer("Software Engineer", "Toronto", "Lorem sripsum #2", ExperienceLevel.JUNIOR);
-    Offer offer9 = new Offer("Ruby Developer", "Krakow", "Lorem sripsum #3", ExperienceLevel.MID);
-    Offer offer10 =
-        new Offer("Software Developer", "New York", "Lorem sripsum #1", ExperienceLevel.INTERN);
-    Offer offer11 =
-        new Offer("Software Engineer", "Toronto", "Lorem sripsum #2", ExperienceLevel.JUNIOR);
-    Offer offer12 = new Offer("Ruby Developer", "Krakow", "Lorem sripsum #3", ExperienceLevel.MID);
-    List<Offer> offers =
-        Arrays.asList(
-            offer1, offer2, offer3, offer4, offer5, offer6, offer7, offer8, offer9, offer10,
-            offer11, offer12);
+    Job job1 =
+        new Job("Software Developer", "New York", "Lorem sripsum #1", ExperienceLevel.INTERN);
+    Job job2 = new Job("Software Engineer", "Toronto", "Lorem sripsum #2", ExperienceLevel.JUNIOR);
+    Job job3 = new Job("Ruby Developer", "Krakow", "Lorem sripsum #3", ExperienceLevel.MID);
+    Job job4 =
+        new Job("Software Developer", "New York", "Lorem sripsum #1", ExperienceLevel.INTERN);
+    Job job5 = new Job("Software Engineer", "Toronto", "Lorem sripsum #2", ExperienceLevel.JUNIOR);
+    Job job6 = new Job("Ruby Developer", "Krakow", "Lorem sripsum #3", ExperienceLevel.MID);
+    Job job7 =
+        new Job("Software Developer", "New York", "Lorem sripsum #1", ExperienceLevel.INTERN);
+    Job job8 = new Job("Software Engineer", "Toronto", "Lorem sripsum #2", ExperienceLevel.JUNIOR);
+    Job job9 = new Job("Ruby Developer", "Krakow", "Lorem sripsum #3", ExperienceLevel.MID);
+    Job job10 =
+        new Job("Software Developer", "New York", "Lorem sripsum #1", ExperienceLevel.INTERN);
+    Job job11 = new Job("Software Engineer", "Toronto", "Lorem sripsum #2", ExperienceLevel.JUNIOR);
+    Job job12 = new Job("Ruby Developer", "Krakow", "Lorem sripsum #3", ExperienceLevel.MID);
+    List<Job> jobs =
+        Arrays.asList(job1, job2, job3, job4, job5, job6, job7, job8, job9, job10, job11, job12);
 
-    employer1.setOfferList(offers);
-    offers.forEach(offer -> offer.setEmployer(employer1));
-    offers.forEach(offer -> offer.setTechnologies(technologies));
-    technologies.forEach(technology -> technology.setOffer(offer1));
+    company1.setJobList(jobs);
+    jobs.forEach(job -> job.setCompany(company1));
+    jobs.forEach(job -> job.setSkills(skills));
+    skills.forEach(skill -> skill.getJobs().add(job1));
     // LINKING UP DATA
-    employer1.setOfferList(offers);
+    company1.setJobList(jobs);
 
-    employerRepository.saveAll(employers);
+    companyRepository.saveAll(companies);
   }
 }
