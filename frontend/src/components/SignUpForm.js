@@ -3,7 +3,7 @@ import axios from '../api/api_config';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 const bcrypt = require('bcryptjs');
-const USERTYPE = 'DEVELOPER';
+const USERTYPE = 'EMPLOYEE';
 export const SIGNUP_ENDPOINT = '/signup';
 export const LOGIN_ENDPOINT = '/login';
 
@@ -35,7 +35,7 @@ class SignUpForm extends Component {
     }
 
     const hashedPassword = bcrypt.hashSync(password);
-
+    // todo: IMPLEMENT JWT
     await axios
       .post(SIGNUP_ENDPOINT, {
         email: email,

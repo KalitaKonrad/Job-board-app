@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { SET_EMPLOYER } from '../actions/login';
-import { DEVELOPER, EMPLOYER } from './Login';
 import NavbarBtn from './buttons/NavbarBtn';
-import { HOME_ENDPOINT, LOGIN_ENDPOINT, SIGNUP_ENDPOINT } from '../api/endpoints';
+import { LOGIN_ENDPOINT, SIGNUP_ENDPOINT } from '../api/endpoints';
 import LogoBtn from './buttons/LogoBtn';
 
 class Navbar extends Component {
@@ -14,13 +12,11 @@ class Navbar extends Component {
         <nav className='flex container items-center justify-around flex-wrap px-4 py-3'>
           <LogoBtn />
           <div className='flex items-center justify-around'>
-            <NavbarBtn endpoint={LOGIN_ENDPOINT} text='Login' img='user' />
-            <NavbarBtn endpoint={SIGNUP_ENDPOINT} text='Sign up' img='user' />
-            {this.props.isLogged && (
-              <Link to='/job' className='rounded-lg focus:outline bg-pink-500 p-4 mx-3 hover:bg-pink-600 font-bold'>
-                Post a job
-              </Link>
-            )}
+            <NavbarBtn endpoint={LOGIN_ENDPOINT} text='Login' />
+            <NavbarBtn endpoint={SIGNUP_ENDPOINT} text='Sign up' />
+            <Link to='/job' className='rounded-lg focus:outline bg-pink-500 p-4 mx-3 hover:bg-pink-600 font-bold'>
+              Post a job
+            </Link>
           </div>
         </nav>
       </div>

@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class NavbarBtn extends Component {
   render() {
-    const { endpoint, text, img } = this.props;
+    const { endpoint, text } = this.props;
 
     return (
       <div className=''>

@@ -3,8 +3,8 @@ import axios from '../api/api_config';
 import { LOGIN_ENDPOINT } from './SignUpForm';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { LOGIN, LOGOUT, loginOrLogout, setUsertype, SET_DEVELOPER, SET_EMPLOYER } from '../actions/login';
-import { HOME_ENDPOINT, DEVELOPER } from '../api/endpoints';
+import { LOGIN, LOGOUT, loginOrLogout, setUsertype, SET_EMPLOYEE, SET_EMPLOYER } from '../actions/login';
+import { HOME_ENDPOINT, EMPLOYEE } from '../api/endpoints';
 
 const bcrypt = require('bcryptjs');
 
@@ -32,7 +32,7 @@ class Login extends Component {
         if (bcrypt.compareSync(password, data.password)) {
           this.setState({ redirect: HOME_ENDPOINT });
           this.props.login();
-          this.props.setUsertype(data.usertype === String(DEVELOPER) ? SET_DEVELOPER : SET_EMPLOYER);
+          this.props.setUsertype(data.usertype === String(EMPLOYEE) ? SET_EMPLOYEE : SET_EMPLOYER);
           return;
         }
         alert('Wrong email or password!');
@@ -43,7 +43,7 @@ class Login extends Component {
       });
   };
 
-  handleEnterClick = e => {
+  handleKeyDown = e => {
     if (e.key === 'Enter') {
       this.onSubmit(e);
     }
@@ -83,7 +83,7 @@ class Login extends Component {
               type='password'
               placeholder='Password'
               required
-              onKeyDown={e => this.handleEnterClick(e)}
+              onKeyDown={e => this.handleKeyDown(e)}
             />
           </div>
           <button className='bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline'>

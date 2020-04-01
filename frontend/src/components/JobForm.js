@@ -6,27 +6,28 @@ import {
   CHOOSE_MID,
   CHOOSE_INTERN
 } from '../actions/jobForm/changeExpLevel';
-import { addTechnology } from '../actions/jobForm/addTechnology';
-import { selectTechnology } from '../actions/jobForm/selectTechnology';
-import { deleteTechnology } from '../actions/jobForm/deleteTechnology';
+import { addSkill } from '../actions/jobForm/addSkill';
+import { selectSkill } from '../actions/jobForm/selectSkill';
+import { deleteSkill } from '../actions/jobForm/deleteSkill';
 import { connect } from 'react-redux';
 import axios from '../api/api_config';
+import { JOBS_ENDPOINT } from '../api/endpoints';
 
 class JobForm extends Component {
-  injectTechnologiesIntoForm = technologies => {
+  injectSkillsIntoForm = skills => {
     return (
       <ul className='flex flex-wrap py-2 px-4'>
-        {technologies.map(technology => {
+        {skills.map(skill => {
           return (
             <li
               className='p-2 m-2 bg-blue-500 rounded-lg font-bold text-white focus:outline-none hover:bg-red-700 cursor-pointer uppercase'
-              key={technology}
+              key={skill}
               onClick={e => {
                 e.preventDefault();
-                this.props.onTechnologyClickDelete(e.target.textContent);
+                this.props.onSkillClickDelete(e.target.textContent);
               }}
             >
-              {technology}
+              {skill}
             </li>
           );
         })}
@@ -34,14 +35,10 @@ class JobForm extends Component {
     );
   };
 
-  handleEnterClick = e => {
-    if (
-      e.key === 'Enter' &&
-      e.target.value !== '' &&
-      this.props.technologies.indexOf(this.props.selectedTechnology) == -1
-    ) {
-      this.props.onAddTechnologyClick(e.target.value);
-      document.getElementById('technology-search').value = '';
+  handleKeyDown = e => {
+    if (e.key === 'Enter' && e.target.value !== '' && this.props.skills.indexOf(this.props.selectedSkill) === -1) {
+      this.props.onAddSkillClick(e.target.value);
+      document.getElementById('skill-search').value = '';
     }
   };
 
@@ -59,19 +56,20 @@ class JobForm extends Component {
     }
 
     await axios
-      .post('/offers', {
+      .post(JOBS_ENDPOINT, {
         position: position,
         location: location,
         description: description,
-        technologies: this.props.technologies,
+        skills: this.props.skills,
         experienceLevel: this.props.experienceLevel
       })
       .then(res => {
         if (res.status === 200) {
-          alert('Successfully added job offer!');
+          alert('Successfully added job job!');
         }
       })
       .catch(err => {
+        console.err(err);
         alert('Something went wrong!');
       });
     // TODO
@@ -202,39 +200,36 @@ class JobForm extends Component {
           </div>
           <div className='flex justify-between items-baseline w-full py-3'>
             <label
-              htmlFor='technology-search'
+              htmlFor='skill-search'
               className='font-bold  tracking-wide text-gray-700 uppercase py-2 px-4 mb-3 mt-3'
             >
-              Technologies
+              Skills
             </label>
             <input
               type='text'
-              id='technology-search'
-              name='technology-search'
+              id='skill-search'
+              name='skill-search'
               className=' py-2 px-3 mb-3 rounded-lg bg-gray-200 focus:outline-none'
-              placeholder='Search for technology..'
+              placeholder='Search for skill..'
               onChange={e => {
-                this.props.onTechnologyChange(e.target.value);
+                this.props.onSkillChange(e.target.value);
               }}
-              onKeyDown={e => this.handleEnterClick(e)}
+              onKeyDown={e => this.handleKeyDown(e)}
             />
             <button
               className='rounded-lg bg-green-500 py-2 px-3 m-2 hover:bg-green-300 text-white font-bold text-center focus:outline-none'
               onClick={e => {
                 e.preventDefault();
-                if (
-                  this.props.selectedTechnology !== '' &&
-                  this.props.technologies.indexOf(this.props.selectedTechnology) == -1
-                ) {
-                  this.props.onAddTechnologyClick(this.props.selectedTechnology);
+                if (this.props.selectedSkill !== '' && this.props.skills.indexOf(this.props.selectedSkill) === -1) {
+                  this.props.onAddSkillClick(this.props.selectedSkill);
                 }
-                document.getElementById('technology-search').value = '';
+                document.getElementById('skill-search').value = '';
               }}
             >
               Add
             </button>
           </div>
-          <div className=''>{this.injectTechnologiesIntoForm(this.props.technologies)}</div>
+          <div className=''>{this.injectSkillsIntoForm(this.props.skills)}</div>
           <button
             type='submit'
             className='bg-green-500 py-2 px-3 m-2 hover:bg-green-300 text-white font-bold rounded-lg text-center focus:outline-none'
@@ -248,12 +243,11 @@ class JobForm extends Component {
 }
 
 const mapStateToProps = state => {
-  const { experienceLevel, technologies, selectedTechnology } = state.JobForm;
-
+  const { experienceLevel, skills, selectedSkill } = state.jobForm;
   return {
     experienceLevel,
-    technologies,
-    selectedTechnology
+    skills,
+    selectedSkill
   };
 };
 
@@ -263,17 +257,18 @@ const mapDispatchToProps = dispatch => {
       dispatch(changeExperienceLevel(exp));
     },
 
-    onAddTechnologyClick: name => {
-      dispatch(addTechnology(name));
+    onAddSkillClick: name => {
+      dispatch(addSkill(name));
     },
 
-    onTechnologyChange: selectedTechnology => {
-      dispatch(selectTechnology(selectedTechnology));
+    onSkillChange: selectedSkill => {
+      dispatch(selectSkill(selectedSkill));
     },
 
-    onTechnologyClickDelete: techName => {
-      dispatch(deleteTechnology(techName));
+    onSkillDelete: name => {
+      dispatch(deleteSkill(name));
     }
   };
 };
+
 export default connect(mapStateToProps, mapDispatchToProps)(JobForm);

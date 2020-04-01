@@ -1,54 +1,70 @@
-import { CHOOSE_INTERN, CHOOSE_JUNIOR, CHOOSE_MID, CHOOSE_SENIOR } from '../actions/jobForm/changeExpLevel';
-import { ADD_TECHNOLOGY } from '../actions/jobForm/addTechnology';
-import { SELECT_TECHNOLOGY } from '../actions/jobForm/selectTechnology';
-import { DELETE_TECHNOLOGY } from '../actions/jobForm/deleteTechnology';
+import {
+  FETCH_JOBS_PENDING,
+  FETCH_JOBS_SUCCESS,
+  FETCH_JOBS_ERROR,
+  CLEAR_JOBS,
+  UPDATE_KEYWORDS,
+  UPDATE_LOCATION
+} from '../actions/fetchJobs';
+
+export const LIMIT_ITEMS_COUNT_FETCH = 20;
 
 const initialState = {
-  experienceLevel: 'INTERN',
-  technologies: [],
-  selectedTechnology: ''
+  pending: false,
+  jobs: [],
+  hasMoreItems: true,
+  page: 0,
+  error: null,
+  keywords: '',
+  location: ''
 };
 
-const JobReducer = (state = initialState, action) => {
+const jobReducer = (state = initialState, action) => {
   switch (action.type) {
-    case CHOOSE_INTERN:
+    case FETCH_JOBS_SUCCESS:
+      let isThereMoreJobs = true;
+      if (action.payload.length === 0) {
+        isThereMoreJobs = false;
+      }
       return {
         ...state,
-        experienceLevel: 'INTERN'
+        page: state.page + 1,
+        pending: false,
+        hasMoreItems: isThereMoreJobs,
+        jobs: state.jobs.concat(action.payload)
       };
-    case CHOOSE_JUNIOR:
+    case FETCH_JOBS_ERROR:
       return {
         ...state,
-        experienceLevel: 'JUNIOR'
+        pending: false,
+        error: action.error
       };
-    case CHOOSE_MID:
+    case FETCH_JOBS_PENDING:
       return {
         ...state,
-        experienceLevel: 'MID'
+        pending: true
       };
-    case CHOOSE_SENIOR:
+    case CLEAR_JOBS:
       return {
         ...state,
-        experienceLevel: 'SENIOR'
+        jobs: [],
+        page: 0,
+        keywords: '',
+        location: ''
       };
-    case ADD_TECHNOLOGY:
+    case UPDATE_KEYWORDS:
       return {
         ...state,
-        technologies: [...state.technologies, action.payload]
+        keywords: action.payload
       };
-    case SELECT_TECHNOLOGY:
+    case UPDATE_LOCATION:
       return {
         ...state,
-        selectedTechnology: action.payload
-      };
-    case DELETE_TECHNOLOGY:
-      return {
-        ...state,
-        technologies: [...state.technologies.filter(t => t != action.payload)]
+        location: action.payload
       };
     default:
       return state;
   }
 };
 
-export default JobReducer;
+export default jobReducer;

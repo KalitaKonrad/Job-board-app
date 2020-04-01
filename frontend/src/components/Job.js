@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 
-class Offer extends Component {
-  loadTechnologies = () => {
+class Job extends Component {
+  loadSkills = () => {
     return (
       <ul className='flex flex-row overflow-hidden'>
-        {this.props.technologies.map(technology => {
+        {this.props.skills.map(skill => {
           return (
             <li
-              key={technology.id}
+              key={skill.id}
               className='px-2 mx-2 font-semibold text-gray-600 border-2 rounded-full uppercase border-pink-500'
             >
-              {technology.name}
+              {skill.name}
             </li>
           );
         })}
@@ -35,7 +35,7 @@ class Offer extends Component {
               <img src={require('../img/pin.png')} className='px-1 mx-1' alt='pin icon' />
               <span>{location}</span>
             </div>
-            <div className='flex items-center'>{this.loadTechnologies()}</div>
+            <div className='flex items-center'>{this.loadSkills()}</div>
           </div>
         </div>
       </div>
@@ -43,4 +43,4 @@ class Offer extends Component {
   }
 }
 
-export default Offer;
+export default Job;

@@ -1,17 +1,17 @@
-import React, { useEffect, Component } from 'react';
-import axios from './api/api_config';
+import React, { Component } from 'react';
+
 import SignUpForm from './components/SignUpForm';
 import Navbar from './components/Navbar';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import Offers from './components/Offers';
-import { useSelector, useDispatch, connect } from 'react-redux';
-import { fetchOffers, clearOffers } from './actions/fetchOffers';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Jobs from './components/Jobs';
+import { connect } from 'react-redux';
+import { fetchJobs, clearJobs } from './actions/fetchJobs';
 import Login from './components/Login';
 import JobForm from './components/JobForm';
 import SearchBar from './components/SearchBar';
 import UsageData from './components/UsageData';
 import CompanyList from './components/CompanyList';
-import { OFFERS_ENDPOINT, HOME_ENDPOINT, LOGIN_ENDPOINT, SIGNUP_ENDPOINT, JOBFORM_ENDPOINT } from './api/endpoints';
+import { JOBS_ENDPOINT, HOME_ENDPOINT, LOGIN_ENDPOINT, SIGNUP_ENDPOINT, JOBFORM_ENDPOINT } from './api/endpoints';
 
 class App extends Component {
   render() {
@@ -52,10 +52,10 @@ class App extends Component {
               <Navbar />
               <JobForm />
             </Route>
-            <Route exact path={OFFERS_ENDPOINT}>
+            <Route exact path={JOBS_ENDPOINT}>
               <div className='bg-green-400 w-full min-h-screen'>
                 <Navbar />
-                <Offers />
+                <Jobs />
               </div>
             </Route>
           </Switch>
@@ -67,17 +67,17 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    offers: state.offers,
+    jobs: state.jobs,
     isLogged: state.isLogged,
-    offset: state.offers.offset,
-    hasMoreItems: state.offers.hasMoreItems
+    page: state.jobs.page,
+    hasMoreItems: state.jobs.hasMoreItems
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchOffers: offset => dispatch(fetchOffers(offset)),
-    clearOffers: () => dispatch(clearOffers())
+    fetchJobs: page => dispatch(fetchJobs(page)),
+    clearJobs: () => dispatch(clearJobs())
   };
 };
 

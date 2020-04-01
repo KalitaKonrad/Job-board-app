@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchOffers } from '../actions/fetchOffers';
-import { Link } from 'react-router-dom';
-import { updateKeywords, updateLocation } from '../actions/fetchOffers';
+import { fetchJobs } from '../actions/fetchJobs';
+import { Link, Redirect } from 'react-router-dom';
+import { updateKeywords, updateLocation } from '../actions/fetchJobs';
+import { JOBS_ENDPOINT } from '../api/endpoints';
 
 class SearchBar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      submitted: false
+    };
+  }
+
   onFindJobsClick = () => {
     const keywords = document.getElementById('job-keywords').value;
     const location = document.getElementById('job-location').value;
@@ -14,7 +22,18 @@ class SearchBar extends Component {
     updateLocation(location);
   };
 
+  handleKeyDown = e => {
+    if (e.key === 'Enter') {
+      this.onFindJobsClick();
+      this.setState({ submitted: true });
+    }
+  };
+
   render() {
+    if (this.state.submitted === true) {
+      return <Redirect to={JOBS_ENDPOINT} />;
+    }
+
     return (
       <div className='flex flex-col items-center justify-center w-full pt-24 pb-12'>
         <h1 className='text-white font-bold text-5xl'>Find Your Career. You Deserve it.</h1>
@@ -26,6 +45,7 @@ class SearchBar extends Component {
             name='job-keywords'
             placeholder='Job Title or Keywords'
             required
+            onKeyDown={e => this.handleKeyDown(e)}
           />
           <input
             type='text'
@@ -33,9 +53,10 @@ class SearchBar extends Component {
             name='job-location'
             placeholder='Location'
             className='rounded-sm px-4 focus:outline-none text-gray-700 w-1/5 h-12'
+            onKeyDown={e => this.handleKeyDown(e)}
           />
           <Link
-            to='/offers'
+            to={JOBS_ENDPOINT}
             className='bg-pink-500 p-3 text-white font-bold rounded-sm text-center uppercase shadow-2xl focus:outline-none hover:bg-pink-600 cursor-pointer'
             onClick={() => this.onFindJobsClick()}
           >
@@ -49,13 +70,13 @@ class SearchBar extends Component {
 
 const mapStateToProps = state => {
   return {
-    offset: state.offers.offset
+    page: state.jobs.page
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchOffers: (offset, keywords, location) => dispatch(fetchOffers(offset, keywords, location)),
+    fetchJobs: (page, keywords, location) => dispatch(fetchJobs(page, keywords, location)),
     updateKeywords: keywords => dispatch(updateKeywords(keywords)),
     updateLocation: location => dispatch(updateLocation(location))
   };

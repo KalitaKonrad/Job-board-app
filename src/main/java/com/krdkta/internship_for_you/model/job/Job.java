@@ -33,7 +33,7 @@ public class Job {
 
   @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinTable(
-      name = "jobs_skills",
+      name = "job_skills",
       joinColumns = {@JoinColumn(name = "job_id", nullable = false, updatable = false)},
       inverseJoinColumns = {@JoinColumn(name = "skill_id", nullable = false, updatable = false)})
   @EqualsAndHashCode.Exclude
@@ -66,7 +66,7 @@ public class Job {
   private int maximumSalary;
 
   @Column(name = "created_date")
-  private Date createdDate;
+  private Date createdDate = new Date(System.currentTimeMillis());
 
   public Job(
       String position, String location, String description, ExperienceLevel experienceLevel) {

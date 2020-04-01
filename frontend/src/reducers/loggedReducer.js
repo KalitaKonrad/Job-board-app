@@ -1,4 +1,5 @@
-import { LOGIN, LOGOUT, SET_DEVELOPER, SET_EMPLOYER } from '../actions/login';
+import { LOGIN, LOGOUT, SET_EMPLOYEE, SET_EMPLOYER } from '../actions/login';
+
 const initialState = {
   isLogged: false,
   usertype: ''
@@ -16,10 +17,10 @@ const loggedReducer = (state = initialState, action) => {
         ...state,
         isLogged: false
       };
-    case SET_DEVELOPER:
+    case SET_EMPLOYEE:
       return {
         ...state,
-        usertype: 'DEVELOPER'
+        usertype: 'EMPLOYEE'
       };
     case SET_EMPLOYER:
       return {
