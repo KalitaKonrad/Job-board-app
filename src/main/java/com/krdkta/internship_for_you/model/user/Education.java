@@ -35,5 +35,5 @@ public class Education {
 
   @OneToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id")
-  private User user;
+  private ApplicationUser applicationUser;
 }

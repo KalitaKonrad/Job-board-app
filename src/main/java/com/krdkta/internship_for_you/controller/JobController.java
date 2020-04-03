@@ -24,6 +24,10 @@ public class JobController {
     this.companyService = companyService;
   }
 
+  //  @PostMapping(value = "/authenticate")
+  //  public ResponseEntity<?> createAuthenticationToken(
+  //      @RequestBody AuthenticationRequest authenticationRequest) throws Exception {}
+
   @GetMapping(value = "jobs/{id}")
   public Job getEmployer(@PathVariable long id) {
     return jobService.getJobById(id);

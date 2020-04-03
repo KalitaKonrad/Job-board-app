@@ -15,7 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "users")
-public class User {
+public class ApplicationUser {
 
   @Column(name = "user_id")
   private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
@@ -29,21 +29,22 @@ public class User {
   @Column(name = "password", nullable = false)
   private String password;
 
+  @Enumerated(EnumType.STRING)
   @Column(name = "gender")
-  private Character gender;
+  private Gender gender = Gender.NONE;
 
-  @Column(name = "first_name", nullable = false)
-  private String firstName;
+  @Column(name = "firstname", nullable = false)
+  private String firstname;
 
-  @Column(name = "last_name", nullable = false)
-  private String lastName;
+  @Column(name = "lastname", nullable = false)
+  private String lastname;
 
   @Column(name = "phone")
   private String phone;
 
   @Enumerated(EnumType.STRING)
   @Column(name = "usertype")
-  private UserType usertype;
+  private UserType usertype = UserType.EMPLOYEE;
 
   @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
   @JoinTable(
@@ -55,7 +56,7 @@ public class User {
   @OneToOne(
       fetch = FetchType.LAZY,
       cascade = CascadeType.ALL,
-      mappedBy = "user",
+      mappedBy = "applicationUser",
       orphanRemoval = true)
   private Education education;
 
@@ -63,6 +64,6 @@ public class User {
       fetch = FetchType.LAZY,
       cascade = CascadeType.ALL,
       orphanRemoval = true,
-      mappedBy = "user")
+      mappedBy = "applicationUser")
   private List<Experience> experience = new ArrayList<>();
 }

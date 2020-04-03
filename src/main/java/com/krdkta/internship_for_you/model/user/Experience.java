@@ -49,5 +49,5 @@ public class Experience {
   @JsonIgnore
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id")
-  private User user;
+  private ApplicationUser applicationUser;
 }

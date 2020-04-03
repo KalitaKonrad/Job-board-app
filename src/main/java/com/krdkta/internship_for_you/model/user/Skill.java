@@ -23,7 +23,7 @@ public class Skill {
 
   @JsonIgnore
   @ManyToMany(fetch = FetchType.LAZY, mappedBy = "skills")
-  private Set<User> users = new HashSet<>();
+  private Set<ApplicationUser> applicationUsers = new HashSet<>();
 
   @JsonIgnore
   @ManyToMany(fetch = FetchType.LAZY, mappedBy = "skills")
