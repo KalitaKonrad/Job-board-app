@@ -22,7 +22,7 @@ public interface JobRepository extends JpaRepository<Job, Long> {
 
   List<Job> findJobsByCompanyContains(Company company);
 
-  // write query here
+  // TODO: write query to find jobs by required skills(a.k.a technologies)
   //  List<Job> findJobsBySkillsContaining(String name);
 
   List<Job> findJobsByMinimumSalaryGreaterThanEqual(int minimum_salary);

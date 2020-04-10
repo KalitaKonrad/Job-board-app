@@ -1,8 +1,10 @@
-import { LOGIN, LOGOUT, SET_EMPLOYEE, SET_EMPLOYER } from '../actions/login';
+import { LOGIN, LOGOUT, SET_EMPLOYEE, SET_EMPLOYER, SET_TOKEN } from '../actions/login';
+import axios from '../api/api_config';
 
 const initialState = {
   isLogged: false,
-  usertype: ''
+  usertype: '',
+  token: '',
 };
 
 const loggedReducer = (state = initialState, action) => {
@@ -10,22 +12,28 @@ const loggedReducer = (state = initialState, action) => {
     case LOGIN:
       return {
         ...state,
-        isLogged: true
+        isLogged: true,
       };
     case LOGOUT:
       return {
         ...state,
-        isLogged: false
+        isLogged: false,
       };
     case SET_EMPLOYEE:
       return {
         ...state,
-        usertype: 'EMPLOYEE'
+        usertype: 'EMPLOYEE',
       };
     case SET_EMPLOYER:
       return {
         ...state,
-        usertype: 'EMPLOYER'
+        usertype: 'EMPLOYER',
+      };
+    case SET_TOKEN:
+      axios.defaults.headers.common['Authorization'] = action.payload;
+      return {
+        ...state,
+        token: action.payload,
       };
     default:
       return state;

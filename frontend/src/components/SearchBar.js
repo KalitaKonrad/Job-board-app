@@ -9,7 +9,7 @@ class SearchBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      submitted: false
+      submitted: false,
     };
   }
 
@@ -22,7 +22,7 @@ class SearchBar extends Component {
     updateLocation(location);
   };
 
-  handleKeyDown = e => {
+  handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       this.onFindJobsClick();
       this.setState({ submitted: true });
@@ -45,7 +45,7 @@ class SearchBar extends Component {
             name='job-keywords'
             placeholder='Job Title or Keywords'
             required
-            onKeyDown={e => this.handleKeyDown(e)}
+            onKeyDown={(e) => this.handleKeyDown(e)}
           />
           <input
             type='text'
@@ -53,7 +53,7 @@ class SearchBar extends Component {
             name='job-location'
             placeholder='Location'
             className='rounded-sm px-4 focus:outline-none text-gray-700 w-1/5 h-12'
-            onKeyDown={e => this.handleKeyDown(e)}
+            onKeyDown={(e) => this.handleKeyDown(e)}
           />
           <Link
             to={JOBS_ENDPOINT}
@@ -68,17 +68,17 @@ class SearchBar extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    page: state.jobs.page
+    page: state.jobs.page,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     fetchJobs: (page, keywords, location) => dispatch(fetchJobs(page, keywords, location)),
-    updateKeywords: keywords => dispatch(updateKeywords(keywords)),
-    updateLocation: location => dispatch(updateLocation(location))
+    updateKeywords: (keywords) => dispatch(updateKeywords(keywords)),
+    updateLocation: (location) => dispatch(updateLocation(location)),
   };
 };
 

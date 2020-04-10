@@ -1,50 +1,126 @@
-import { CHOOSE_INTERN, CHOOSE_JUNIOR, CHOOSE_MID, CHOOSE_SENIOR } from '../actions/jobForm/changeExpLevel';
+import { INTERN, JUNIOR, MID, SENIOR } from '../actions/jobForm/changeExpLevel';
 import { ADD_SKILL } from '../actions/jobForm/addSkill';
-import { SELECT_SKILL } from '../actions/jobForm/selectSkill';
 import { DELETE_SKILL } from '../actions/jobForm/deleteSkill';
+import { NEXT_STEP, PREV_STEP } from '../actions/jobForm/changeStep';
+import { RESET_FORM } from '../actions/jobForm/resetForm';
+import {
+  POSITION,
+  DESCRIPTION,
+  MINIMUM_SALARY,
+  MAXIMUM_SALARY,
+  CITY,
+  COUNTRY,
+  LOCATION_STATE,
+  STREET,
+  ZIP,
+} from '../actions/jobForm/formFields';
 
 const initialState = {
   experienceLevel: 'INTERN',
   skills: [],
-  selectedSkill: ''
+  errors: {},
+  step: 1,
+  position: '',
+  description: '',
+  minimumSalary: 0,
+  maximumSalary: 0,
+  city: '',
+  country: '',
+  locationState: '',
+  street: '',
+  zip: '',
 };
 
 const jobFormReducer = (state = initialState, action) => {
   switch (action.type) {
-    case CHOOSE_INTERN:
+    case INTERN:
       return {
         ...state,
-        experienceLevel: 'INTERN'
+        experienceLevel: 'INTERN',
       };
-    case CHOOSE_JUNIOR:
+    case JUNIOR:
       return {
         ...state,
-        experienceLevel: 'JUNIOR'
+        experienceLevel: 'JUNIOR',
       };
-    case CHOOSE_MID:
+    case MID:
       return {
         ...state,
-        experienceLevel: 'MID'
+        experienceLevel: 'MID',
       };
-    case CHOOSE_SENIOR:
+    case SENIOR:
       return {
         ...state,
-        experienceLevel: 'SENIOR'
+        experienceLevel: 'SENIOR',
       };
     case ADD_SKILL:
       return {
         ...state,
-        skills: [...state.skills, action.payload]
-      };
-    case SELECT_SKILL:
-      return {
-        ...state,
-        selectedSkill: action.payload
+        skills: [...state.skills, action.payload],
       };
     case DELETE_SKILL:
       return {
         ...state,
-        skills: [...state.skills.filter(s => s !== action.payload)]
+        skills: [...state.skills.filter((s) => s !== action.payload)],
+      };
+    case NEXT_STEP:
+      return {
+        ...state,
+        step: state.step + 1,
+      };
+    case PREV_STEP:
+      return {
+        ...state,
+        step: state.step - 1,
+      };
+    case RESET_FORM:
+      return {
+        initialState,
+      };
+    case POSITION:
+      return {
+        ...state,
+        position: action.payload,
+      };
+    case DESCRIPTION:
+      return {
+        ...state,
+        description: action.payload,
+      };
+    case MINIMUM_SALARY:
+      return {
+        ...state,
+        minimumSalary: action.payload,
+      };
+    case MAXIMUM_SALARY:
+      return {
+        ...state,
+        maximumSalary: action.payload,
+      };
+    case CITY:
+      return {
+        ...state,
+        city: action.payload,
+      };
+    case COUNTRY:
+      return {
+        ...state,
+        country: action.payload,
+      };
+    case LOCATION_STATE:
+      return {
+        ...state,
+        locationState: action.payload,
+      };
+    case STREET:
+      return {
+        ...state,
+        street: action.payload,
+      };
+    case ZIP:
+      return {
+        ...state,
+        zip: action.payload,
       };
     default:
       return state;

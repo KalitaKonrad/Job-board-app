@@ -3,47 +3,61 @@ import axios from '../api/api_config';
 import { LOGIN_ENDPOINT } from './SignUpForm';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { LOGIN, LOGOUT, loginOrLogout, setUsertype, SET_EMPLOYEE, SET_EMPLOYER } from '../actions/login';
+import { LOGIN, LOGOUT, loginOrLogout, setUsertype, SET_EMPLOYEE, SET_EMPLOYER, setToken } from '../actions/login';
 import { HOME_ENDPOINT, EMPLOYEE } from '../api/endpoints';
+import { Container, Avatar, Typography, TextField, FormControlLabel, Checkbox, Button, Grid } from '@material-ui/core';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+// import { Link } from 'react-router-dom';
+import { withStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
+import Link from '@material-ui/core/Link';
 
-const bcrypt = require('bcryptjs');
+const styles = (theme) => ({
+  textFieldForm: {
+    color: '#fff',
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+  link: {
+    underline: 'hover',
+  },
+});
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      redirect: null
+      redirect: null,
+      errorMsg: '',
+      error: false,
     };
   }
 
-  onSubmit = e => {
+  onSubmit = (e) => {
     e.preventDefault();
-    const email = document.getElementById('email').value;
+    const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
-    const hashedPassword = bcrypt.hashSync(password);
-
+    const { setToken } = this.props;
     axios
       .post(LOGIN_ENDPOINT, {
-        email: email,
-        password: hashedPassword
+        username,
+        password,
       })
-      .then(res => res.data)
-      .then(data => {
-        if (bcrypt.compareSync(password, data.password)) {
-          this.setState({ redirect: HOME_ENDPOINT });
-          this.props.login();
-          this.props.setUsertype(data.usertype === String(EMPLOYEE) ? SET_EMPLOYEE : SET_EMPLOYER);
-          return;
-        }
-        alert('Wrong email or password!');
+      .then((res) => {
+        console.log(res);
+        setToken(res.headers.authorization);
       })
-      .catch(err => {
-        alert('User with this email does not exist!');
+      .catch((err) => {
+        this.setState({ errorMsg: 'Incorrect username or password!', error: true });
+        setTimeout(() => {
+          this.setState({ errorMsg: '', error: false });
+        }, 2000);
         console.log(err);
       });
   };
 
-  handleKeyDown = e => {
+  handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       this.onSubmit(e);
     }
@@ -54,59 +68,87 @@ class Login extends Component {
       return <Redirect to={this.state.redirect} />;
     }
 
+    const { error, errorMsg } = this.state;
+    const { classes } = this.props;
+
     return (
-      <div className='container flex font-bold justify-center mx-auto p-4 m-4'>
-        <form
-          className='flex flex-col items-center w-full max-w-xs bg-white shadow-md border-2 border-darken-2 rounded-lg px-8 pt-6 pb-8 mb-4'
-          onSubmit={e => this.onSubmit(e)}
-        >
-          <div className='p-3 m-3 text-bold text-2xl'>Please sign in</div>
-          <div className='mb-4'>
-            <label htmlFor='email' className='block text-sm font-bold mb-2'>
-              Email
-            </label>
-            <input
-              type='text'
-              className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-              id='email'
-              placeholder='Email-address'
-              required
-            />
-          </div>
-          <div className='mb-6'>
-            <label htmlFor='password' placeholder='Password' className='block  text-sm font-bold mb-2'>
-              Password
-            </label>
-            <input
-              className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline'
-              id='password'
-              type='password'
-              placeholder='Password'
-              required
-              onKeyDown={e => this.handleKeyDown(e)}
-            />
-          </div>
-          <button className='bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline'>
+      <Container component='main' maxWidth='xs'>
+        <div className='flex flex-col items-center rounded-lg text-white font-bold mt-24'>
+          <Avatar>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component='h1' variant='h5'>
             Sign in
-          </button>
-        </form>
-      </div>
+          </Typography>
+          <form className='w-full'>
+            <TextField
+              variant='filled'
+              margin='normal'
+              id='username'
+              label='Username'
+              name='username'
+              error={error}
+              helperText={errorMsg}
+              InputProps={{ className: classes.textFieldForm }}
+              InputLabelProps={{ className: classes.textFieldForm }}
+              className={classes.submit}
+              fullWidth
+              required
+              autoFocus
+              autoComplete='Username'
+            />
+            <TextField
+              variant='filled'
+              margin='normal'
+              required
+              fullWidth
+              InputProps={{ className: classes.textFieldForm }}
+              InputLabelProps={{ className: classes.textFieldForm }}
+              error={error}
+              helperText={errorMsg}
+              name='password'
+              label='Password'
+              type='password'
+              id='password'
+              autoComplete='password'
+            />
+            <FormControlLabel control={<Checkbox value='remember' color='primary' />} label='Remember me' />
+            <Button type='submit' onClick={this.onSubmit} fullWidth variant='contained' color='primary'>
+              <span className='text-white focus:outline-none font-bold'> Sign In</span>
+            </Button>
+
+            <Grid container className='mt-4'>
+              <Grid item xs>
+                <Link href='#' variant='body2' color='initial'>
+                  Forgot password?
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link href='/signup' variant='body2' color='initial'>
+                  Don't have an account? Sign Up
+                </Link>
+              </Grid>
+            </Grid>
+          </form>
+        </div>
+      </Container>
     );
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    isLogged: state.isLogged
+    isLogged: state.isLogged,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     login: () => dispatch(loginOrLogout(LOGIN)),
     logout: () => dispatch(loginOrLogout(LOGOUT)),
-    setUsertype: usertype => dispatch(setUsertype(usertype))
+    setUsertype: (usertype) => dispatch(setUsertype(usertype)),
+    setToken: (token) => dispatch(setToken(token)),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Login));

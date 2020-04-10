@@ -1,10 +1,10 @@
-export const CHOOSE_JUNIOR = 'CHOOSE_JUNIOR';
-export const CHOOSE_MID = 'CHOOSE_MID';
-export const CHOOSE_SENIOR = 'CHOOSE_SENIOR';
-export const CHOOSE_INTERN = 'CHOOSE_INTERN';
+export const JUNIOR = 'JUNIOR';
+export const MID = 'MID';
+export const SENIOR = 'SENIOR';
+export const INTERN = 'INTERN';
 
 export function changeExperienceLevel(level) {
-	return {
-		type: level
-	};
+  return {
+    type: level,
+  };
 }

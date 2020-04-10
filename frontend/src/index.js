@@ -8,6 +8,9 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import allReducers from './reducers/index';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
+import { ThemeProvider } from '@material-ui/core/styles';
+import theme from './theme';
+import './assets/login.css';
 
 // KEEPING STORE IN LOCAL STORAGE WHEN PAGE IS REFRESHED
 
@@ -39,15 +42,16 @@ const persistedState = loadFromLocalStorage();
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(allReducers, persistedState, composeEnhancer(applyMiddleware(thunk)));
+const store = createStore(allReducers, composeEnhancer(applyMiddleware(thunk))); // add persistedState, after allReducers to keep state after refresh
 
 // every time there is dispatch call saveToLocalStorage
-
-store.subscribe(() => saveToLocalStorage(store.getState()));
+// store.subscribe(() => saveToLocalStorage(store.getState()));
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <ThemeProvider theme={theme}>
+      <App />
+    </ThemeProvider>
   </Provider>,
   document.getElementById('root')
 );

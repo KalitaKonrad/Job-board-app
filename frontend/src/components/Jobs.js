@@ -30,7 +30,7 @@ class Jobs extends Component {
             </span>
           }
         >
-          {jobs.jobs.map(job => (
+          {jobs.jobs.map((job) => (
             <Job
               key={job.id}
               position={job.position}
@@ -45,19 +45,19 @@ class Jobs extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     jobs: state.jobs,
     page: state.jobs.page,
     keywords: state.jobs.keywords,
     location: state.jobs.location,
-    hasMoreItems: state.jobs.hasMoreItems
+    hasMoreItems: state.jobs.hasMoreItems,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    fetchJobs: (page, keywords, location) => dispatch(fetchJobs(page, keywords, location))
+    fetchJobs: (page, keywords, location) => dispatch(fetchJobs(page, keywords, location)),
   };
 };
 

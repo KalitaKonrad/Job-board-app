@@ -12,6 +12,7 @@ import SearchBar from './components/SearchBar';
 import UsageData from './components/UsageData';
 import CompanyList from './components/CompanyList';
 import { JOBS_ENDPOINT, HOME_ENDPOINT, LOGIN_ENDPOINT, SIGNUP_ENDPOINT, JOBFORM_ENDPOINT } from './api/endpoints';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 class App extends Component {
   render() {
@@ -19,20 +20,19 @@ class App extends Component {
       <div
         className='w-screen h-screen'
         style={{
-          // backgroundImage: `url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80')`,
-          // backgroundImage: `url('https://cdn.pixabay.com/photo/2016/03/09/09/22/workplace-1245776_960_720.jpg')`,
-          // background: 'linear-gradient(to bottom, #1e5799 0%,#207cca 1%,#1e5799 94%,#2989d8 100%,#7db9e8 100%)',
+          backgroundImage: `url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80')`,
           backgroundBlendMode: 'darken',
-          backgroundImage: `url('https://images.unsplash.com/photo-1559523182-a284c3fb7cff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80')`,
+          // backgroundImage: `url('https://images.unsplash.com/photo-1559523182-a284c3fb7cff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80')`,
           backgroundPosition: 'center center',
           backgroundColor: `rgba(0,0,0,0.4)`,
           backgroundSize: 'cover',
           backgroundRepeat: 'noRepeat',
           transition: 'background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s',
-          opacity: 1
+          opacity: 1,
         }}
         // style={{ backgroundImage: `require('./img/background.jpg')`, backgroundSize: 'contain' }}
       >
+        <CssBaseline />
         <Router>
           <Switch>
             <Route exact path={HOME_ENDPOINT}>
@@ -65,19 +65,19 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     jobs: state.jobs,
     isLogged: state.isLogged,
     page: state.jobs.page,
-    hasMoreItems: state.jobs.hasMoreItems
+    hasMoreItems: state.jobs.hasMoreItems,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    fetchJobs: page => dispatch(fetchJobs(page)),
-    clearJobs: () => dispatch(clearJobs())
+    fetchJobs: (page) => dispatch(fetchJobs(page)),
+    clearJobs: () => dispatch(clearJobs()),
   };
 };
 

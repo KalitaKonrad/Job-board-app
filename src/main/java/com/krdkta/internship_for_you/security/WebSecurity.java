@@ -15,6 +15,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import static com.krdkta.internship_for_you.security.SecurityConstants.JOBS_URL;
 import static com.krdkta.internship_for_you.security.SecurityConstants.SIGN_UP_URL;
 
 @EnableWebSecurity
@@ -36,6 +37,10 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         .csrf()
         .disable()
         .authorizeRequests()
+        .antMatchers(HttpMethod.GET, JOBS_URL)
+        .permitAll()
+        //        .antMatchers(HttpMethod.GET, USERS_URL)
+        //        .hasRole("hasRole('ROLE_USER')")
         .antMatchers(HttpMethod.POST, SIGN_UP_URL)
         .permitAll()
         .anyRequest()
@@ -55,7 +60,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
   @Bean
   CorsConfigurationSource corsConfigurationSource() {
     final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+    CorsConfiguration corsConfiguration = new CorsConfiguration().applyPermitDefaultValues();
+    corsConfiguration.addExposedHeader("Authorization");
+    source.registerCorsConfiguration("/**", corsConfiguration);
     return source;
   }
 
