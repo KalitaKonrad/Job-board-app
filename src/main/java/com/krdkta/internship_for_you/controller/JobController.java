@@ -48,8 +48,8 @@ public class JobController {
         job.getSkills().stream()
             .map(skill -> new Skill(skill.getName(), job))
             .collect(Collectors.toSet()));
-    //    job.setCompany(employerService.getEmployerById(1L)); // TODO: implement dynamic
-    jobService.save(job);
+    job.setCompany(companyService.getCompanyById(1L)); // TODO: implement dynamic
+    //    jobService.save(job, username);
     return job;
   }
 

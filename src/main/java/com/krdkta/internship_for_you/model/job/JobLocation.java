@@ -1,6 +1,5 @@
 package com.krdkta.internship_for_you.model.job;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,10 +32,7 @@ public class JobLocation {
   @Column(name = "zip", length = 50)
   private String zip;
 
-  @JsonIgnore
-  @OneToOne(
-      fetch = FetchType.LAZY,
-      cascade = {CascadeType.PERSIST})
-  @JoinColumn(name = "job_id")
-  private Job job;
+  public JobLocation(String city) {
+    this.city = city;
+  }
 }

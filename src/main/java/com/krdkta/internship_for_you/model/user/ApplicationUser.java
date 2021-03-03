@@ -1,7 +1,10 @@
 package com.krdkta.internship_for_you.model.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.krdkta.internship_for_you.model.company.Company;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -66,4 +69,10 @@ public class ApplicationUser {
       orphanRemoval = true,
       mappedBy = "applicationUser")
   private List<Experience> experience = new ArrayList<>();
+
+  @JsonIgnore
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "company_id")
+  @EqualsAndHashCode.Exclude
+  private Company company;
 }

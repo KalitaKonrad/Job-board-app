@@ -1,44 +1,35 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import SignUpForm from './components/SignUpForm';
-import Navbar from './components/Navbar';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Jobs from './components/Jobs';
-import { connect } from 'react-redux';
-import { fetchJobs, clearJobs } from './actions/fetchJobs';
-import Login from './components/Login';
-import JobForm from './components/JobForm';
-import SearchBar from './components/SearchBar';
-import UsageData from './components/UsageData';
-import CompanyList from './components/CompanyList';
-import { JOBS_ENDPOINT, HOME_ENDPOINT, LOGIN_ENDPOINT, SIGNUP_ENDPOINT, JOBFORM_ENDPOINT } from './api/endpoints';
-import CssBaseline from '@material-ui/core/CssBaseline';
+import SignUpForm from "./components/SignUpForm";
+import Navbar from "./components/Navbar/Navbar";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Jobs from "./components/Job/Jobs";
+import { connect } from "react-redux";
+import { fetchJobs, clearJobs } from "./actions/fetchJobs";
+import Login from "./components/Login";
+import SearchBar from "./components/SearchBar";
+import UsageData from "./components/UsageData";
+import CompanyList from "./components/CompanyList";
+import {
+  JOBS_ENDPOINT,
+  HOME_ENDPOINT,
+  LOGIN_ENDPOINT,
+  SIGNUP_ENDPOINT,
+  JOBFORM_ENDPOINT,
+} from "./api/endpoints";
+import JobFormTut from "./components/Forms/Job/JobFormTut";
 
 class App extends Component {
   render() {
     return (
-      <div
-        className='w-screen h-screen'
-        style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80')`,
-          backgroundBlendMode: 'darken',
-          // backgroundImage: `url('https://images.unsplash.com/photo-1559523182-a284c3fb7cff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80')`,
-          backgroundPosition: 'center center',
-          backgroundColor: `rgba(0,0,0,0.4)`,
-          backgroundSize: 'cover',
-          backgroundRepeat: 'noRepeat',
-          transition: 'background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s',
-          opacity: 1,
-        }}
-        // style={{ backgroundImage: `require('./img/background.jpg')`, backgroundSize: 'contain' }}
-      >
-        <CssBaseline />
+      <div className="w-100">
         <Router>
           <Switch>
             <Route exact path={HOME_ENDPOINT}>
               <Navbar />
-              <SearchBar />
-              <UsageData />
+
+              {/*<SearchBar />*/}
+              {/*<UsageData />*/}
             </Route>
             <Route exact path={SIGNUP_ENDPOINT}>
               <Navbar />
@@ -50,10 +41,10 @@ class App extends Component {
             </Route>
             <Route exact path={JOBFORM_ENDPOINT}>
               <Navbar />
-              <JobForm />
+              <JobFormTut />
             </Route>
             <Route exact path={JOBS_ENDPOINT}>
-              <div className='bg-green-400 w-full min-h-screen'>
+              <div className="bg-blue-500 w-full min-h-screen">
                 <Navbar />
                 <Jobs />
               </div>

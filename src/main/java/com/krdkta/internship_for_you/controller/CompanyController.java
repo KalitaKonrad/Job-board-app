@@ -22,7 +22,7 @@ public class CompanyController {
     return companyService.getAllCompanies();
   }
 
-  @GetMapping(value = "companies/{id}")
+  @GetMapping(value = "/companies/{id}")
   public Company getCompany(@PathVariable long id) {
     return companyService.getCompanyById(id);
   }
@@ -32,7 +32,7 @@ public class CompanyController {
     companyService.save(company);
   }
 
-  @PutMapping(value = "companies/{id}")
+  @PutMapping(value = "/companies/{id}")
   public void updateEmployer(@RequestBody Company company, @PathVariable long id) {
     companyService.updateCompanyById(company, id);
   }

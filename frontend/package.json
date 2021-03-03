@@ -13,11 +13,12 @@
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.19.2",
     "babel-eslint": "^10.0.3",
-    "bcryptjs": "^2.4.3",
+    "bootstrap": "^4.5.0",
     "react": "^16.12.0",
+    "react-bootstrap": "^1.0.1",
     "react-dom": "^16.12.0",
-    "react-hook-form": "^5.1.1",
-    "react-infinite-scroll-component": "^5.0.4",
+    "react-hook-form": "^5.7.2",
+    "react-paginate": "^6.3.2",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.0",
@@ -35,6 +36,11 @@
   "eslintConfig": {
     "extends": "react-app"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -49,7 +55,10 @@
   },
   "devDependencies": {
     "autoprefixer": "^9.7.4",
+    "husky": "^4.2.5",
     "postcss-cli": "^7.1.0",
+    "prettier": "^2.0.5",
+    "pretty-quick": "^2.0.1",
     "redux-devtools": "^3.5.0",
     "tailwindcss": "^1.2.0"
   }

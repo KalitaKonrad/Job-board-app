@@ -1,13 +1,16 @@
 package com.krdkta.internship_for_you.model.company;
 
 import com.krdkta.internship_for_you.model.job.Job;
+import com.krdkta.internship_for_you.model.user.ApplicationUser;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -42,6 +45,13 @@ public class Company {
       cascade = CascadeType.ALL,
       orphanRemoval = true)
   private List<Job> jobList = new ArrayList<>();
+
+  @OneToMany(
+      fetch = FetchType.LAZY,
+      mappedBy = "company",
+      cascade = CascadeType.ALL,
+      orphanRemoval = true)
+  private Set<ApplicationUser> users = new HashSet<>();
 
   public Company(String name, String location, String description, int size) {
     this.name = name;

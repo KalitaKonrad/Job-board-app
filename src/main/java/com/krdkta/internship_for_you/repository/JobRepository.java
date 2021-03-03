@@ -17,7 +17,7 @@ public interface JobRepository extends JpaRepository<Job, Long> {
 
   @Query(
       "select j from Job j where lower(j.position) like lower(concat('%', ?1, '%')) and "
-          + "lower(j.location) like lower(concat('%', ?2, '%'))")
+          + "lower(j.jobLocation.city) like lower(concat('%', ?2, '%'))")
   Page<Job> findByKeywordsOrLocation(String keywords, String location, Pageable pageable);
 
   List<Job> findJobsByCompanyContains(Company company);

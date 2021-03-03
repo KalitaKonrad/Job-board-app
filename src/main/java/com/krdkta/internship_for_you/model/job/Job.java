@@ -39,18 +39,12 @@ public class Job {
   @EqualsAndHashCode.Exclude
   private Set<Skill> skills = new HashSet<>();
 
-  @OneToOne(
-      fetch = FetchType.LAZY,
-      mappedBy = "job",
-      cascade = CascadeType.ALL,
-      orphanRemoval = true)
+  @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  @JoinColumn(name = "job_location_id")
   private JobLocation jobLocation;
 
   @Column(name = "position")
   private String position;
-
-  @Column(name = "location")
-  private String location;
 
   @Column(name = "description")
   private String description;
@@ -68,10 +62,8 @@ public class Job {
   @Column(name = "created_date")
   private Date createdDate = new Date(System.currentTimeMillis());
 
-  public Job(
-      String position, String location, String description, ExperienceLevel experienceLevel) {
+  public Job(String position, String description, ExperienceLevel experienceLevel) {
     this.position = position;
-    this.location = location;
     this.description = description;
     this.experienceLevel = experienceLevel;
   }

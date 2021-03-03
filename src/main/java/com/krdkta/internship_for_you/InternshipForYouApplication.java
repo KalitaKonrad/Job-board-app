@@ -3,6 +3,7 @@ package com.krdkta.internship_for_you;
 import com.krdkta.internship_for_you.model.company.Company;
 import com.krdkta.internship_for_you.model.job.ExperienceLevel;
 import com.krdkta.internship_for_you.model.job.Job;
+import com.krdkta.internship_for_you.model.job.JobLocation;
 import com.krdkta.internship_for_you.model.user.Skill;
 import com.krdkta.internship_for_you.repository.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,24 +55,23 @@ public class InternshipForYouApplication {
     List<Company> companies = Arrays.asList(company1, company2, company3);
 
     // EXAMPLE OFFERS
-    Job job1 =
-        new Job("Software Developer", "New York", "Lorem sripsum #1", ExperienceLevel.INTERN);
-    Job job2 = new Job("Software Engineer", "Toronto", "Lorem sripsum #2", ExperienceLevel.JUNIOR);
-    Job job3 = new Job("Ruby Developer", "Krakow", "Lorem sripsum #3", ExperienceLevel.MID);
-    Job job4 =
-        new Job("Software Developer", "New York", "Lorem sripsum #1", ExperienceLevel.INTERN);
-    Job job5 = new Job("Software Engineer", "Toronto", "Lorem sripsum #2", ExperienceLevel.JUNIOR);
-    Job job6 = new Job("Ruby Developer", "Krakow", "Lorem sripsum #3", ExperienceLevel.MID);
-    Job job7 =
-        new Job("Software Developer", "New York", "Lorem sripsum #1", ExperienceLevel.INTERN);
-    Job job8 = new Job("Software Engineer", "Toronto", "Lorem sripsum #2", ExperienceLevel.JUNIOR);
-    Job job9 = new Job("Ruby Developer", "Krakow", "Lorem sripsum #3", ExperienceLevel.MID);
-    Job job10 =
-        new Job("Software Developer", "New York", "Lorem sripsum #1", ExperienceLevel.INTERN);
-    Job job11 = new Job("Software Engineer", "Toronto", "Lorem sripsum #2", ExperienceLevel.JUNIOR);
-    Job job12 = new Job("Ruby Developer", "Krakow", "Lorem sripsum #3", ExperienceLevel.MID);
+    Job job1 = new Job("Software Developer", "Lorem sripsum #1", ExperienceLevel.INTERN);
+    Job job2 = new Job("Software Engineer", "Lorem sripsum #2", ExperienceLevel.JUNIOR);
+    Job job3 = new Job("Ruby Developer", "Lorem sripsum #3", ExperienceLevel.MID);
+    Job job4 = new Job("Software Developer", "Lorem sripsum #1", ExperienceLevel.INTERN);
+    Job job5 = new Job("Software Engineer", "Lorem sripsum #2", ExperienceLevel.JUNIOR);
+    Job job6 = new Job("Ruby Developer", "Lorem sripsum #3", ExperienceLevel.MID);
+    Job job7 = new Job("Software Engineer", "Lorem sripsum #2", ExperienceLevel.JUNIOR);
+    Job job8 = new Job("Ruby Developer", "Lorem sripsum #3", ExperienceLevel.MID);
+    Job job9 = new Job("Software Engineer", "Lorem sripsum #2", ExperienceLevel.JUNIOR);
+    Job job10 = new Job("Ruby Developer", "Lorem sripsum #3", ExperienceLevel.MID);
+    Job job11 = new Job("Software Developer", "Lorem sripsum #1", ExperienceLevel.INTERN);
+    Job job12 = new Job("Software Engineer", "Lorem sripsum #2", ExperienceLevel.JUNIOR);
+
     List<Job> jobs =
         Arrays.asList(job1, job2, job3, job4, job5, job6, job7, job8, job9, job10, job11, job12);
+    jobs.forEach(job -> job.setJobLocation(new JobLocation("Tokyo"))); // TODO: add job location
+    //     to each job
 
     company1.setJobList(jobs);
     jobs.forEach(job -> job.setCompany(company1));

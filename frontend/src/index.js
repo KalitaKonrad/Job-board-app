@@ -1,23 +1,23 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
-import './assets/main.css';
-import { createStore, applyMiddleware, compose } from 'redux';
-import allReducers from './reducers/index';
-import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
-import { ThemeProvider } from '@material-ui/core/styles';
-import theme from './theme';
-import './assets/login.css';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import * as serviceWorker from "./serviceWorker";
+import "./assets/main.css";
+import { createStore, applyMiddleware, compose } from "redux";
+import allReducers from "./reducers/index";
+import { Provider } from "react-redux";
+import thunk from "redux-thunk";
+import { ThemeProvider } from "@material-ui/core/styles";
+import theme from "./theme";
+import "./assets/login.css";
 
 // KEEPING STORE IN LOCAL STORAGE WHEN PAGE IS REFRESHED
 
 function saveToLocalStorage(state) {
   try {
     const serializedState = JSON.stringify(state);
-    localStorage.setItem('state', serializedState);
+    localStorage.setItem("state", serializedState);
   } catch (err) {
     console.err(err);
   }
@@ -25,7 +25,7 @@ function saveToLocalStorage(state) {
 
 function loadFromLocalStorage() {
   try {
-    const serializedState = localStorage.getItem('state');
+    const serializedState = localStorage.getItem("state");
     if (serializedState === null) {
       return undefined;
     }
@@ -53,7 +53,7 @@ ReactDOM.render(
       <App />
     </ThemeProvider>
   </Provider>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change

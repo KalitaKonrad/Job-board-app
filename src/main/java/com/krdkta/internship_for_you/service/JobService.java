@@ -1,6 +1,7 @@
 package com.krdkta.internship_for_you.service;
 
 import com.krdkta.internship_for_you.model.job.Job;
+import com.krdkta.internship_for_you.repository.CompanyRepository;
 import com.krdkta.internship_for_you.repository.JobRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -14,10 +15,12 @@ import java.util.stream.Collectors;
 public class JobService {
 
   private JobRepository jobRepostiory;
+  private CompanyRepository companyRepository;
 
   @Autowired
-  public JobService(JobRepository jobRepository) {
+  public JobService(JobRepository jobRepository, CompanyRepository companyRepository) {
     this.jobRepostiory = jobRepository;
+    this.companyRepository = companyRepository;
   }
 
   public List<Job> findAll() {
@@ -32,7 +35,9 @@ public class JobService {
         .collect(Collectors.toList());
   }
 
-  public void save(Job job) {
+  public void save(Job job, String username) {
+    //    job.setCompany(); TODO: while saving job find which company (id) the job is offered from
+    job.setCompany(companyRepository.findCompanyByUsersContaining(username));
     jobRepostiory.save(job);
   }
 
@@ -45,7 +50,7 @@ public class JobService {
         .findById(id)
         .ifPresent(
             o -> {
-              this.save(job);
+              jobRepostiory.save(job);
             });
   }
 

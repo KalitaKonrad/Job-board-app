@@ -1,57 +1,41 @@
-import { INTERN, JUNIOR, MID, SENIOR } from '../actions/jobForm/changeExpLevel';
-import { ADD_SKILL } from '../actions/jobForm/addSkill';
-import { DELETE_SKILL } from '../actions/jobForm/deleteSkill';
-import { NEXT_STEP, PREV_STEP } from '../actions/jobForm/changeStep';
-import { RESET_FORM } from '../actions/jobForm/resetForm';
+import { jobForm } from "../actions";
 import {
-  POSITION,
-  DESCRIPTION,
-  MINIMUM_SALARY,
-  MAXIMUM_SALARY,
-  CITY,
-  COUNTRY,
-  LOCATION_STATE,
-  STREET,
-  ZIP,
-} from '../actions/jobForm/formFields';
+  POST_JOB_ERROR,
+  POST_JOB_PENDING,
+  POST_JOB_SUCCESS,
+} from "../actions/jobFormActions";
 
 const initialState = {
-  experienceLevel: 'INTERN',
+  experienceLevel: "INTERN",
   skills: [],
-  errors: {},
-  step: 1,
-  position: '',
-  description: '',
+  step: 2,
+  position: "",
+  description: "",
   minimumSalary: 0,
   maximumSalary: 0,
-  city: '',
-  country: '',
-  locationState: '',
-  street: '',
-  zip: '',
+  city: "",
+  country: "",
+  state: "",
+  street: "",
+  zip: "",
+  error: "",
 };
 
 const jobFormReducer = (state = initialState, action) => {
+  const {
+    ADD_SKILL,
+    DELETE_SKILL,
+    PREV_STEP,
+    NEXT_STEP,
+    RESET_FORM,
+    UPDATE_FIELDS,
+  } = jobForm;
+
   switch (action.type) {
-    case INTERN:
+    case UPDATE_FIELDS:
       return {
         ...state,
-        experienceLevel: 'INTERN',
-      };
-    case JUNIOR:
-      return {
-        ...state,
-        experienceLevel: 'JUNIOR',
-      };
-    case MID:
-      return {
-        ...state,
-        experienceLevel: 'MID',
-      };
-    case SENIOR:
-      return {
-        ...state,
-        experienceLevel: 'SENIOR',
+        ...action.payload,
       };
     case ADD_SKILL:
       return {
@@ -73,54 +57,22 @@ const jobFormReducer = (state = initialState, action) => {
         ...state,
         step: state.step - 1,
       };
+    case POST_JOB_PENDING:
+      return {
+        ...state,
+      };
+    case POST_JOB_SUCCESS: {
+      return initialState;
+    }
+    case POST_JOB_ERROR: {
+      return {
+        ...state,
+        error: "Error while posting job.",
+      };
+    }
     case RESET_FORM:
       return {
         initialState,
-      };
-    case POSITION:
-      return {
-        ...state,
-        position: action.payload,
-      };
-    case DESCRIPTION:
-      return {
-        ...state,
-        description: action.payload,
-      };
-    case MINIMUM_SALARY:
-      return {
-        ...state,
-        minimumSalary: action.payload,
-      };
-    case MAXIMUM_SALARY:
-      return {
-        ...state,
-        maximumSalary: action.payload,
-      };
-    case CITY:
-      return {
-        ...state,
-        city: action.payload,
-      };
-    case COUNTRY:
-      return {
-        ...state,
-        country: action.payload,
-      };
-    case LOCATION_STATE:
-      return {
-        ...state,
-        locationState: action.payload,
-      };
-    case STREET:
-      return {
-        ...state,
-        street: action.payload,
-      };
-    case ZIP:
-      return {
-        ...state,
-        zip: action.payload,
       };
     default:
       return state;
